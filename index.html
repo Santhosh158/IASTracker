@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Amma's Care</title>
 <link rel="manifest" href="./manifest.webmanifest" />
-<meta name="theme-color" content="#2E6B43" />
+<meta name="theme-color" content="#246048" />
 <meta name="description" content="Amma's daily food and recovery companion" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -18,17 +18,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Noto+Sans+Tamil:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#FBF7EF; --surface:#FFFFFF; --surface-2:#FFFDF8;
-    --border:#EADFCB; --border-strong:#DED0B8;
-    --ink:#28201A; --ink-soft:#6B5C4D; --ink-faint:#988873;
-    --green:#2E6B43; --green-deep:#234F30; --green-soft:#E6F0E6;
-    --gold:#CF8E24; --gold-deep:#946712; --gold-soft:#FAEDCE;
-    --jamun:#6B4A7A; --jamun-soft:#ECE4F0;
-    --brick:#B0552E; --brick-soft:#F6E5DA;
-    --red:#B42318; --red-soft:#FBE6E3;
-    --shadow:0 1px 2px rgba(40,32,26,.04),0 6px 16px rgba(40,32,26,.06);
-    --shadow-lg:0 10px 30px rgba(40,32,26,.13);
-    --r:20px; --r-sm:14px; --maxw:600px;
+    --paper:#F6EEDF; --surface:#FFFDF8; --surface-2:#FBF4E7;
+    --border:#E8DAC1; --border-strong:#D9C7A6;
+    --ink:#2A211A; --ink-soft:#6E5D4B; --ink-faint:#9C8B73;
+    --green:#246048; --green-deep:#15402A; --green-soft:#E4EFE2;
+    --gold:#E0A21F; --gold-deep:#956611; --gold-soft:#FBEAC4;
+    --brass:#B07D2E;
+    --jamun:#6E4A7C; --jamun-soft:#ECE2F1;
+    --brick:#A85230; --brick-soft:#F4E2D5;
+    --red:#B23120; --red-soft:#F8E4DE;
+    --shadow:0 1px 2px rgba(58,42,26,.05),0 8px 20px -8px rgba(58,42,26,.12);
+    --shadow-lg:0 18px 44px -12px rgba(58,42,26,.22);
+    --r:22px; --r-sm:14px; --r-lg:28px; --maxw:600px;
     font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -40,11 +41,11 @@
 
   .app{max-width:var(--maxw);margin:0 auto;min-height:100vh;padding-bottom:96px;background:var(--paper);}
 
-  header.top{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,#FBF7EF 0%, #FBF7EFEE 72%, #FBF7EF00 100%);padding:16px 18px 12px;}
+  header.top{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,#F6EEDF 0%, rgba(246,238,223,.92) 70%, rgba(246,238,223,0) 100%);padding:16px 18px 12px;}
   .brandrow{display:flex;align-items:center;gap:11px;}
   .leaf{width:38px;height:38px;flex:0 0 auto;}
-  .brandname{font-weight:700;font-size:22px;letter-spacing:-.02em;color:var(--green-deep);line-height:1;}
-  .brandsub{font-size:12.5px;color:var(--ink-faint);font-weight:600;margin-top:4px;}
+  .brandname{font-weight:600;font-size:23px;letter-spacing:-.02em;color:var(--green-deep);line-height:1;}
+  .brandsub{font-size:12.5px;color:var(--ink-faint);font-weight:600;margin-top:5px;letter-spacing:.01em;}
 
   main{padding:2px 16px 12px;}
   .view{display:none;animation:fade .25s ease;}
@@ -62,43 +63,45 @@
   [hidden]{display:none !important;}
 
   /* today summary card */
-  .todaycard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 17px;margin-bottom:13px;}
-  .tc-prl{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:9px;}
-  .tc-prl b{font-size:18px;font-weight:800;color:var(--green-deep);}
-  .tc-bar{height:10px;border-radius:999px;background:var(--green-soft);overflow:hidden;}
-  .tc-bar > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#3C8553,#2E6B43);transition:width .5s cubic-bezier(.2,.8,.2,1);width:0%;}
-  .tc-dose{display:flex;align-items:center;gap:12px;margin-top:15px;padding-top:14px;border-top:1px solid var(--border);}
+  .todaycard{position:relative;overflow:hidden;background:linear-gradient(155deg,#FFF6E3 0%, #FFFDF8 48%);border:1px solid #EFE0C2;border-radius:var(--r-lg);box-shadow:var(--shadow);padding:18px;margin-bottom:13px;}
+  .todaycard::after{content:"";position:absolute;top:-44px;right:-34px;width:158px;height:158px;border-radius:50%;background:radial-gradient(circle,rgba(224,162,31,.22),rgba(224,162,31,0) 70%);pointer-events:none;}
+  .tc-prl{position:relative;font-size:15px;font-weight:600;color:var(--ink-soft);margin-bottom:10px;}
+  .tc-prl b{font-size:19px;font-weight:800;color:var(--green-deep);}
+  .tc-bar{position:relative;height:11px;border-radius:999px;background:#EFE3CC;overflow:hidden;box-shadow:inset 0 1px 2px rgba(58,42,26,.09);}
+  .tc-bar > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#2E7A53,#246048);transition:width .6s cubic-bezier(.2,.8,.2,1);width:0%;}
+  .tc-dose{position:relative;display:flex;align-items:center;gap:12px;margin-top:15px;padding-top:14px;border-top:1px solid rgba(216,198,166,.55);}
   .tc-dose .pill{font-size:22px;}
   .tc-dose b{display:block;font-size:16px;font-weight:700;color:var(--ink);line-height:1.3;}
   .tc-dose span{font-size:13px;color:var(--ink-soft);}
 
   /* low sugar button */
-  .lowbtn{display:flex;flex-direction:column;align-items:center;gap:3px;width:100%;background:var(--red-soft);color:var(--red);border:1.5px solid #f0c4be;border-radius:var(--r);padding:16px;cursor:pointer;margin-bottom:20px;box-shadow:var(--shadow);}
+  .lowbtn{display:flex;flex-direction:column;align-items:center;gap:3px;width:100%;background:linear-gradient(180deg,#FBEAE3,#F8E4DE);color:var(--red);border:1.5px solid #EEC3B9;border-radius:var(--r);padding:16px;cursor:pointer;margin-bottom:20px;box-shadow:var(--shadow);}
   .lowbtn:active{transform:scale(.99);}
   .lowbtn .lb1{font-size:17px;font-weight:800;}
   .lowbtn .lb2{font-size:14px;font-weight:600;opacity:.85;}
 
   /* section heading */
-  .sectitle{font-weight:700;font-size:19px;letter-spacing:-.01em;margin:4px 2px 12px;display:flex;align-items:baseline;gap:9px;}
-  .sectitle .ta{font-size:15px;color:var(--ink-faint);font-weight:600;}
+  .sectitle{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;letter-spacing:-.01em;color:var(--green-deep);margin:8px 2px 13px;display:flex;align-items:center;gap:9px;}
+  .sectitle .ta{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--ink-faint);font-weight:600;}
 
   /* meals */
   .meals{display:flex;flex-direction:column;gap:11px;}
   .meal{display:flex;gap:13px;align-items:stretch;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:13px 13px 13px 14px;transition:border-color .2s,background .2s;}
-  .micon{width:46px;height:46px;flex:0 0 auto;border-radius:14px;background:var(--gold-soft);display:grid;place-items:center;font-size:23px;border:1px solid #ecdcb6;align-self:flex-start;}
+  .micon{width:48px;height:48px;flex:0 0 auto;border-radius:15px;background:linear-gradient(160deg,#FBEAC4,#F4DDA3);display:grid;place-items:center;font-size:23px;border:1px solid #EAD6A6;box-shadow:0 2px 5px rgba(176,125,46,.13);align-self:flex-start;}
   .mtext{flex:1;min-width:0;}
   .mhead{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
   .mhead .mta{font-weight:700;font-size:16px;color:var(--ink);}
   .mhead .men{font-size:12.5px;font-weight:600;color:var(--gold-deep);letter-spacing:.02em;}
   .mfood{font-size:16px;color:var(--ink-soft);line-height:1.5;margin-top:4px;}
-  .nowbadge{font-size:11px;font-weight:800;letter-spacing:.03em;color:#fff;background:var(--green);padding:3px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;}
+  .nowbadge{font-size:11px;font-weight:800;letter-spacing:.03em;color:#fff;background:var(--gold);padding:3px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 2px 6px -1px rgba(224,162,31,.5);}
   .nowbadge::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;}
   .donebadge{font-size:12px;font-weight:700;color:var(--green-deep);}
   .tick{width:48px;flex:0 0 auto;border:none;background:none;display:flex;align-items:center;justify-content:center;cursor:pointer;}
   .tickcircle{width:38px;height:38px;border-radius:50%;border:2.5px solid var(--border-strong);background:var(--surface-2);display:grid;place-items:center;transition:all .18s;}
   .tickcircle svg{width:20px;height:20px;opacity:0;transform:scale(.5);transition:all .18s;}
-  .meal.now{border-color:var(--green);background:#F2F8F3;box-shadow:0 0 0 3px rgba(46,107,67,.10),var(--shadow);}
-  .meal.done{background:var(--green-soft);border-color:#bcdcc3;}
+  .meal.now{border-color:var(--gold);background:linear-gradient(180deg,#FFFAEE,#FFFDF8);box-shadow:0 0 0 3px rgba(224,162,31,.16),var(--shadow);}
+  .meal.now .micon{background:linear-gradient(160deg,#F3C24E,#E0A21F);border-color:#cf941b;}
+  .meal.done{background:var(--green-soft);border-color:#bcd9c2;}
   .meal.done .tickcircle{background:var(--green);border-color:var(--green);}
   .meal.done .tickcircle svg{opacity:1;transform:scale(1);}
   .meal.done .mta{color:var(--green-deep);}
@@ -228,12 +231,14 @@
   .switch:checked::after{transform:translateX(22px);}
 
   /* bottom nav */
-  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -2px 14px rgba(40,32,26,.06);}
-  .tabsinner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);padding:8px 8px calc(8px + env(safe-area-inset-bottom));}
-  .tab{display:flex;flex-direction:column;align-items:center;gap:4px;padding:7px 0;cursor:pointer;color:var(--ink-faint);border:none;background:none;}
-  .tab svg{width:26px;height:26px;}
-  .tab span{font-size:12px;font-weight:700;letter-spacing:.01em;}
-  .tab.active{color:var(--green);}
+  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;background:linear-gradient(180deg,#FFFDF8,#FBF4E7);border-top:1px solid var(--border);box-shadow:0 -4px 22px -8px rgba(58,42,26,.13);}
+  .tabsinner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);padding:9px 6px calc(9px + env(safe-area-inset-bottom));}
+  .tab{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0;cursor:pointer;color:var(--ink-faint);border:none;background:none;}
+  .tab::before{content:"";position:absolute;top:2px;left:50%;transform:translateX(-50%);width:50px;height:30px;border-radius:999px;background:transparent;transition:background .22s;}
+  .tab.active::before{background:var(--green-soft);}
+  .tab svg{position:relative;width:25px;height:25px;}
+  .tab span{position:relative;font-size:11.5px;font-weight:700;letter-spacing:.01em;}
+  .tab.active{color:var(--green-deep);}
 
   /* modal */
   .scrim{position:fixed;inset:0;background:rgba(35,28,20,.55);z-index:50;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px);}
@@ -258,7 +263,7 @@
   .emergbtn:active{transform:scale(.94);}
   .emergbtn svg{width:21px;height:21px;}
   .emergbtn span{font-size:9px;font-weight:800;letter-spacing:.04em;}
-  .greet{font-size:21px;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin:2px 2px 13px;line-height:1.25;}
+  .greet{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.015em;color:var(--green-deep);margin:4px 2px 14px;line-height:1.2;}
 
   /* next meal */
   .nextmeal{display:flex;align-items:center;gap:11px;margin-top:14px;padding-top:13px;border-top:1px solid var(--border);}
@@ -290,7 +295,7 @@
   .feeldone .fdchg{font-size:12.5px;color:var(--green);font-weight:700;cursor:pointer;margin-top:3px;display:inline-block;}
 
   /* share with family */
-  .sharebtn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--green);color:#fff;border:none;border-radius:var(--r);padding:15px;font-size:16px;font-weight:700;cursor:pointer;margin-top:22px;box-shadow:var(--shadow);}
+  .sharebtn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:linear-gradient(180deg,#2E7A53,#20573E);color:#fff;border:none;border-radius:var(--r);padding:15px;font-size:16px;font-weight:700;cursor:pointer;margin-top:22px;box-shadow:0 7px 18px -5px rgba(21,62,42,.45);}
   .sharebtn:active{transform:scale(.99);}
   .sharebtn svg{width:20px;height:20px;flex:0 0 auto;}
   .sharehint{font-size:12px;color:var(--ink-faint);text-align:center;margin-top:9px;line-height:1.45;}
@@ -324,6 +329,138 @@
   .emerg-care-btn svg{width:26px;height:26px;color:var(--red);flex:0 0 auto;}
   .emerg-care-btn .ecb-t{font-weight:700;font-size:15.5px;color:var(--ink);}
   .emerg-care-btn .ecb-s{font-size:13px;color:var(--ink-soft);margin-top:2px;}
+  /* ===== medicine tick ===== */
+  .medcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;margin-bottom:13px;}
+  .medcard .mc-h{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:11px;display:flex;align-items:center;gap:8px;}
+  .medrow{display:flex;gap:9px;}
+  .medbtn{flex:1;display:flex;align-items:center;gap:9px;border:1.5px solid var(--border-strong);background:var(--surface-2);border-radius:14px;padding:11px 12px;cursor:pointer;text-align:left;transition:all .15s;}
+  .medbtn .mb-ic{width:30px;height:30px;border-radius:50%;border:2px solid var(--border-strong);display:grid;place-items:center;flex:0 0 auto;}
+  .medbtn .mb-ic svg{width:17px;height:17px;opacity:0;transform:scale(.5);transition:.15s;}
+  .medbtn .mb-l b{font-size:13.5px;font-weight:700;color:var(--ink);display:block;}
+  .medbtn .mb-l span{font-size:11.5px;color:var(--ink-soft);}
+  .medbtn.taken{border-color:#bcdcc3;background:var(--green-soft);}
+  .medbtn.taken .mb-ic{background:var(--green);border-color:var(--green);}
+  .medbtn.taken .mb-ic svg{opacity:1;transform:scale(1);}
+  .medbtn.taken .mb-l b{color:var(--green-deep);}
+
+  .readaloud{display:inline-flex;align-items:center;gap:7px;background:var(--gold-soft);border:1px solid #ecdcb6;color:var(--gold-deep);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;}
+  .readaloud svg{width:16px;height:16px;}
+
+  /* ===== sub-nav (segmented) ===== */
+  .subnav{display:flex;gap:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:5px;margin:2px 0 15px;overflow-x:auto;scrollbar-width:none;}
+  .subnav::-webkit-scrollbar{display:none;}
+  .subnav button{flex:1 0 auto;border:none;background:none;border-radius:10px;padding:9px 13px;font-size:13.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;white-space:nowrap;}
+  .subnav button.on{background:var(--surface);color:var(--green-deep);box-shadow:var(--shadow);}
+  .subview{display:none;} .subview.on{display:block;animation:fade .2s;}
+
+  /* ===== meal builder ===== */
+  .bld-intro{font-size:14.5px;color:var(--ink-soft);line-height:1.5;margin:0 0 15px;}
+  .bld-group{margin-bottom:17px;}
+  .bld-group .bg-h{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px;display:flex;align-items:baseline;gap:8px;}
+  .bld-group .bg-h small{font-size:12px;font-weight:600;color:var(--ink-faint);}
+  .bld-chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .bchip{border:1.5px solid var(--border-strong);background:var(--surface);border-radius:12px;padding:9px 13px;font-size:14px;font-weight:600;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .12s;}
+  .bchip .bx-ta{font-size:12px;color:var(--ink-faint);}
+  .bchip.on{background:var(--green);border-color:var(--green);color:#fff;}
+  .bchip.on .bx-ta{color:#dfeede;}
+  .bchip.lim{border-style:dashed;}
+  .bld-make{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:linear-gradient(180deg,#2E7A53,#20573E);color:#fff;border:none;border-radius:var(--r);padding:15px;font-size:16.5px;font-weight:700;cursor:pointer;margin-top:6px;box-shadow:0 7px 18px -5px rgba(21,62,42,.45);}
+  .bld-make:active{transform:scale(.99);}
+  .bld-make:disabled{background:var(--border-strong);box-shadow:none;}
+  .bld-result{margin-top:18px;border:1.5px solid #bcdcc3;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);}
+  .br-head{background:var(--green-soft);padding:15px 16px;}
+  .br-name{font-size:19px;font-weight:700;color:var(--green-deep);letter-spacing:-.01em;line-height:1.2;}
+  .br-style{font-size:13px;color:#4a6b51;margin-top:3px;font-weight:600;}
+  .br-body{padding:15px 16px;background:var(--surface);}
+  .br-sec{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);margin:2px 0 8px;}
+  .br-ing{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:3px 0;color:var(--ink-soft);}
+  .br-ing b{color:var(--ink);font-weight:600;}
+  .br-step{display:flex;gap:11px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--border);font-size:14.5px;color:var(--ink-soft);line-height:1.5;}
+  .br-step:first-of-type{border-top:none;}
+  .br-step .bs-n{width:25px;height:25px;flex:0 0 auto;border-radius:50%;background:var(--gold);color:#fff;font-weight:700;font-size:13px;display:grid;place-items:center;}
+  .br-mac{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px;}
+  .br-mac .bm{flex:1;min-width:64px;text-align:center;background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:9px 4px;}
+  .br-mac .bm b{display:block;font-size:16px;font-weight:700;color:var(--ink);}
+  .br-mac .bm span{font-size:10px;color:var(--ink-faint);font-weight:600;}
+  .br-verdict{border-radius:12px;padding:12px 14px;margin-top:13px;font-size:14px;line-height:1.5;}
+  .br-verdict.ok{background:var(--green-soft);border:1px solid #bcdcc3;color:var(--green-deep);}
+  .br-verdict.tip{background:var(--gold-soft);border:1px solid #ecdcb6;color:var(--ink-soft);}
+  .br-verdict b{font-weight:700;}
+  .br-verdict ul{margin:6px 0 0;padding-left:18px;}
+  .br-verdict li{margin-bottom:4px;}
+  .br-actions{display:flex;gap:9px;margin-top:14px;}
+  .br-actions button{flex:1;border-radius:12px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;border:1.5px solid var(--border-strong);background:var(--surface);color:var(--ink);}
+  .br-actions button.prime{background:var(--green);border-color:var(--green);color:#fff;}
+  .savedmeal{border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:9px;background:var(--surface);display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);}
+  .savedmeal .sm-n{flex:1;font-weight:700;font-size:14.5px;color:var(--ink);}
+  .savedmeal .sm-k{font-size:12px;color:var(--ink-faint);}
+  .savedmeal .sm-x{color:var(--ink-faint);cursor:pointer;font-size:18px;}
+
+  /* ===== shopping + portions ===== */
+  .shopgroup{margin-bottom:15px;}
+  .shopgroup .sgh{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--green-deep);margin-bottom:7px;}
+  .shopitem{display:flex;align-items:center;gap:11px;padding:10px 13px;border:1px solid var(--border);border-radius:11px;margin-bottom:7px;background:var(--surface);cursor:pointer;}
+  .shopitem .si-c{width:22px;height:22px;border-radius:6px;border:2px solid var(--border-strong);flex:0 0 auto;display:grid;place-items:center;}
+  .shopitem .si-c svg{width:14px;height:14px;opacity:0;}
+  .shopitem.got{opacity:.55;}
+  .shopitem.got .si-c{background:var(--green);border-color:var(--green);} .shopitem.got .si-c svg{opacity:1;}
+  .shopitem.got .si-n{text-decoration:line-through;}
+  .shopitem .si-n{font-size:15px;color:var(--ink);font-weight:500;}
+  .portion{display:flex;gap:13px;align-items:center;padding:12px 0;border-top:1px solid var(--border);}
+  .portion:first-of-type{border-top:none;}
+  .portion .pe{font-size:30px;flex:0 0 auto;}
+  .portion .pt b{font-size:15px;color:var(--ink);} .portion .pt span{font-size:13.5px;color:var(--ink-soft);display:block;}
+
+  /* ===== health widgets ===== */
+  .hwrap .sectitle{margin-top:6px;}
+  .hcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:14px;}
+  .hcard .hh{font-size:16.5px;font-weight:700;color:var(--ink);margin:0 0 4px;display:flex;align-items:center;gap:9px;}
+  .hcard .hsub2{font-size:12.5px;color:var(--ink-faint);margin:0 0 13px;}
+  .chartbox{position:relative;width:100%;height:170px;}
+  .chartbox canvas{width:100%;height:100%;}
+  .sugstat{display:flex;gap:9px;margin-top:13px;}
+  .sugstat .ss{flex:1;text-align:center;background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:10px 4px;}
+  .sugstat .ss b{display:block;font-size:17px;font-weight:700;}
+  .sugstat .ss span{font-size:10.5px;color:var(--ink-faint);font-weight:600;}
+  .sugflag{margin-top:12px;border-radius:11px;padding:11px 13px;font-size:13.5px;line-height:1.5;}
+  .sugflag.warn{background:var(--red-soft);border:1px solid #f0c4be;color:var(--ink-soft);} .sugflag.warn b{color:var(--red);}
+  .sugflag.good{background:var(--green-soft);border:1px solid #bcdcc3;color:var(--green-deep);}
+  .miniform{display:flex;gap:8px;margin-bottom:11px;flex-wrap:wrap;}
+  .miniform input,.miniform select{border:1.5px solid var(--border-strong);border-radius:11px;padding:11px 12px;font-size:15px;font-family:inherit;background:var(--surface-2);color:var(--ink);min-width:0;}
+  .miniform input{flex:1;}
+  .miniform input.sm{flex:0 0 92px;}
+  .miniform button{background:var(--green);color:#fff;border:none;border-radius:11px;padding:0 18px;font-weight:700;font-size:15px;cursor:pointer;}
+  .logitem{display:flex;align-items:center;gap:11px;font-size:14.5px;background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:11px 13px;margin-bottom:7px;}
+  .logitem .li-d{font-size:12px;color:var(--ink-faint);flex:0 0 auto;}
+  .logitem .li-t{flex:1;color:var(--ink);}
+  .logitem .li-v{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .logitem .li-x{color:var(--ink-faint);cursor:pointer;font-size:17px;}
+  .logempty{font-size:13.5px;color:var(--ink-faint);text-align:center;padding:10px;}
+  .waterwrap{display:flex;align-items:center;justify-content:center;gap:18px;}
+  .waterbtn{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--border-strong);background:var(--surface);font-size:26px;cursor:pointer;color:var(--green-deep);display:grid;place-items:center;}
+  .watercount{text-align:center;} .watercount b{font-size:34px;font-weight:800;color:var(--green-deep);display:block;line-height:1;} .watercount span{font-size:12.5px;color:var(--ink-faint);}
+  .glassrow{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-top:13px;}
+  .glass{font-size:21px;opacity:.25;} .glass.full{opacity:1;}
+  .icsbtn{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:var(--surface-2);border:1.5px solid var(--border-strong);border-radius:13px;padding:13px 15px;cursor:pointer;margin-bottom:9px;}
+  .icsbtn svg{width:23px;height:23px;color:var(--green-deep);flex:0 0 auto;}
+  .icsbtn b{font-size:14.5px;color:var(--ink);} .icsbtn span{font-size:12.5px;color:var(--ink-soft);display:block;}
+  .qrow{display:flex;align-items:center;gap:11px;padding:10px 0;border-top:1px solid var(--border);}
+  .qrow:first-of-type{border-top:none;}
+  .qrow .qc{width:23px;height:23px;border-radius:6px;border:2px solid var(--border-strong);flex:0 0 auto;display:grid;place-items:center;cursor:pointer;}
+  .qrow .qc svg{width:14px;height:14px;opacity:0;}
+  .qrow.done .qc{background:var(--green);border-color:var(--green);} .qrow.done .qc svg{opacity:1;}
+  .qrow .qt{flex:1;font-size:15px;color:var(--ink);} .qrow.done .qt{text-decoration:line-through;color:var(--ink-faint);}
+  .qrow .qx{color:var(--ink-faint);cursor:pointer;font-size:17px;}
+  .journey{border-radius:12px;background:var(--green-soft);border:1px solid #bcdcc3;padding:15px;}
+  .journey .jbar{height:12px;border-radius:999px;background:#fff;overflow:hidden;margin:11px 0 9px;border:1px solid #cfe3d4;}
+  .journey .jbar i{display:block;height:100%;background:linear-gradient(90deg,#3C8553,#2E6B43);border-radius:999px;}
+  .journey .jt{font-size:14.5px;color:var(--green-deep);line-height:1.5;} .journey .jt b{font-weight:800;}
+
+  /* ===== accessibility ===== */
+  body.bigtext{font-size:19px;}
+  body.bigtext .mfood{font-size:18px;} body.bigtext .greet{font-size:23px;} body.bigtext .mhead .mta{font-size:18px;}
+  body.hicontrast{--ink:#000;--ink-soft:#222;--ink-faint:#444;--border:#bbb;--border-strong:#888;--paper:#fff;--surface:#fff;--surface-2:#fff;}
+  body.hicontrast .meal,body.hicontrast .todaycard,body.hicontrast .hcard,body.hicontrast .card{box-shadow:0 0 0 1px #999;}
 </style>
 </head>
 <body>
@@ -332,8 +469,8 @@
   <header class="top">
     <div class="brandrow">
       <svg class="leaf" viewBox="0 0 48 48" fill="none">
-        <path d="M40 8C20 8 9 20 9 36c0 1.5.2 3 .5 4.4C18 30 27 26 36 24c-7 4.5-13 11-17 19 14 1 29-9 29-31 0-1.5-.2-2.8-.5-4-2.4.6-5 1-7.5 1.2" fill="#2E6B43"/>
-        <path d="M9.5 40.4C12 30 21 21 36 17" stroke="#CF8E24" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M40 8C20 8 9 20 9 36c0 1.5.2 3 .5 4.4C18 30 27 26 36 24c-7 4.5-13 11-17 19 14 1 29-9 29-31 0-1.5-.2-2.8-.5-4-2.4.6-5 1-7.5 1.2" fill="#246048"/>
+        <path d="M9.5 40.4C12 30 21 21 36 17" stroke="#E0A21F" stroke-width="2.2" stroke-linecap="round"/>
       </svg>
       <div>
         <div class="brandname serif">Amma's Care</div>
@@ -368,6 +505,14 @@
         <div class="nextmeal" id="nextMeal"></div>
       </div>
 
+      <div class="medcard">
+        <div class="mc-h">💊 Medicine today</div>
+        <div class="medrow">
+          <button class="medbtn" data-med="am" id="medAm"><span class="mb-ic"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mb-l"><b>Morning</b><span id="medAmDose">60 mg</span></span></button>
+          <button class="medbtn" data-med="pm" id="medPm"><span class="mb-ic"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mb-l"><b>Night</b><span id="medPmDose">50 mg</span></span></button>
+        </div>
+      </div>
+
       <button class="lowbtn" id="lowBtn">
         <span class="lb1">🩸 If her sugar feels low</span>
         <span class="lb2">Tap here for the steps</span>
@@ -375,7 +520,7 @@
 
       <div class="feelcard" id="feelCard"></div>
 
-      <div class="sectitle">Today's meals</div>
+      <div class="sectitle">Today's meals <button class="readaloud" id="readBtn" style="margin-left:auto;"><svg viewBox="0 0 24 24" fill="none"><path d="M11 5 6 9H3v6h3l5 4V5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M15.5 8.5a5 5 0 0 1 0 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Read aloud</button></div>
       <div class="meals" id="meals"></div>
 
       <div class="cornnote">
@@ -401,16 +546,150 @@
       <div class="sharehint">Makes a short WhatsApp message with today's meals, sugar &amp; how she feels.</div>
     </section>
 
-    <!-- ===== FOODS ===== -->
-    <section class="view" id="view-foods">
-      <div class="sectitle">Good foods for Amma</div>
-      <div class="search">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <input type="text" id="foodSearch" placeholder="Search foods (kollu, keerai, fish…)" />
+    <!-- ===== MEALS ===== -->
+    <section class="view" id="view-meals">
+      <div class="subnav" id="mealsNav">
+        <button class="on" data-sub="build">🍳 Build a meal</button>
+        <button data-sub="list">📖 Food list</button>
+        <button data-sub="shop">🛒 Shopping</button>
+        <button data-sub="port">🥄 Portions</button>
       </div>
-      <div class="chips" id="foodChips"></div>
-      <div id="foodList"></div>
-      <div class="gempty" id="foodEmpty" hidden>No foods match that search.</div>
+
+      <!-- Build a meal -->
+      <div class="subview on" id="sub-build">
+        <p class="bld-intro">Pick what she has today — a protein, a grain, some vegetables and how to cook it — and I'll put together a dish with the steps and check it's right for her.</p>
+        <div class="bld-group">
+          <div class="bg-h">1 · Protein <small>pick 1–2</small></div>
+          <div class="bld-chips" id="bgProtein"></div>
+        </div>
+        <div class="bld-group">
+          <div class="bg-h">2 · Grain / base <small>pick one</small></div>
+          <div class="bld-chips" id="bgBase"></div>
+        </div>
+        <div class="bld-group">
+          <div class="bg-h">3 · Vegetables / greens <small>pick any</small></div>
+          <div class="bld-chips" id="bgVeg"></div>
+        </div>
+        <div class="bld-group">
+          <div class="bg-h">4 · Little extras <small>optional</small></div>
+          <div class="bld-chips" id="bgExtra"></div>
+        </div>
+        <div class="bld-group">
+          <div class="bg-h">5 · How to cook it</div>
+          <div class="bld-chips" id="bgStyle"></div>
+        </div>
+        <button class="bld-make" id="bldMake" disabled>🍽️ Make my meal</button>
+        <div id="bldResult"></div>
+        <div id="bldSaved" style="margin-top:22px;"></div>
+      </div>
+
+      <!-- Food list -->
+      <div class="subview" id="sub-list">
+        <div class="search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="foodSearch" placeholder="Search foods (kollu, keerai, fish…)" />
+        </div>
+        <div class="chips" id="foodChips"></div>
+        <div id="foodList"></div>
+        <div class="gempty" id="foodEmpty" hidden>No foods match that search.</div>
+      </div>
+
+      <!-- Shopping -->
+      <div class="subview" id="sub-shop">
+        <p class="bld-intro">A weekly list of what to buy locally. Tap to tick off as you shop. Add anything else you need.</p>
+        <div class="miniform"><input type="text" id="shopAdd" placeholder="Add an item…" /><button id="shopAddBtn">Add</button></div>
+        <div id="shopList"></div>
+        <div style="margin-top:6px;"><button class="readaloud" id="shopReset" style="color:var(--ink-soft);background:var(--surface-2);border-color:var(--border-strong);">↺ Reset ticks</button></div>
+      </div>
+
+      <!-- Portions -->
+      <div class="subview" id="sub-port">
+        <div class="hcard">
+          <div class="hh">🥄 Simple portion guide</div>
+          <div class="hsub2">No weighing needed — use her own hand as the measure.</div>
+          <div class="portion"><span class="pe">✊</span><div class="pt"><b>Rice / millet — one fist</b><span>About 1 cup cooked. Keep white rice to one fist per meal.</span></div></div>
+          <div class="portion"><span class="pe">🤚</span><div class="pt"><b>Protein — one palm</b><span>Fish, egg, paneer, goat — roughly the size and thickness of her palm.</span></div></div>
+          <div class="portion"><span class="pe">👐</span><div class="pt"><b>Vegetables / greens — two cupped hands</b><span>Fill half the plate. The more, the better.</span></div></div>
+          <div class="portion"><span class="pe">👍</span><div class="pt"><b>Fats (ghee/oil) — one thumb</b><span>About 1 teaspoon per dish.</span></div></div>
+          <div class="portion"><span class="pe">🥜</span><div class="pt"><b>Nuts — a small handful</b><span>5–6 almonds + 2 walnuts, or a handful of groundnuts.</span></div></div>
+          <div class="portion"><span class="pe">🍌</span><div class="pt"><b>Fruit — one small piece</b><span>One guava / small bowl papaya, with a snack — not on an empty stomach.</span></div></div>
+        </div>
+        <div class="cornnote"><span class="ci">🥣</span><span class="ct"><b>Bedtime cornstarch:</b> 1–2 level tablespoons stirred into a glass of plain water or milk — no sugar — taken raw just before sleep.</span></div>
+      </div>
+    </section>
+
+    <!-- ===== HEALTH ===== -->
+    <section class="view hwrap" id="view-health">
+      <div class="sectitle">Health &amp; tracking <span style="font-size:13px;color:var(--ink-faint);font-weight:600;">for family</span></div>
+
+      <div class="hcard">
+        <div class="hh">🩸 Sugar trends</div>
+        <div class="hsub2">From the readings noted on the Today screen.</div>
+        <div class="chartbox"><canvas id="sugCanvas"></canvas></div>
+        <div class="sugstat" id="sugStat"></div>
+        <div id="sugFlag"></div>
+      </div>
+
+      <div class="hcard">
+        <div class="hh">📉 Low-sugar episodes</div>
+        <div class="hsub2">Note any low she has — useful for her doctor.</div>
+        <div class="miniform">
+          <input type="text" id="hypoWhat" placeholder="What she felt / what fixed it" />
+          <button id="hypoAdd">Log</button>
+        </div>
+        <div id="hypoList"></div>
+      </div>
+
+      <div class="hcard">
+        <div class="hh">💧 Water today</div>
+        <div class="waterwrap">
+          <button class="waterbtn" id="waterMinus">−</button>
+          <div class="watercount"><b id="waterN">0</b><span>of 8 glasses</span></div>
+          <button class="waterbtn" id="waterPlus">+</button>
+        </div>
+        <div class="glassrow" id="glassRow"></div>
+      </div>
+
+      <div class="hcard">
+        <div class="hh">🧪 Lab results</div>
+        <div class="hsub2">Track key numbers over time to see her progress.</div>
+        <div class="miniform">
+          <input type="text" id="labName" placeholder="Test (e.g. insulin)" />
+          <input type="text" id="labVal" class="sm" placeholder="Value" />
+          <button id="labAdd">Add</button>
+        </div>
+        <div id="labList"></div>
+      </div>
+
+      <div class="hcard">
+        <div class="hh">📅 Appointments &amp; tests</div>
+        <div class="hsub2">The Amrita review, the Coimbatore follow-up, pending tests.</div>
+        <div class="miniform">
+          <input type="text" id="apptTitle" placeholder="What" />
+          <input type="date" id="apptDate" class="sm" />
+        </div>
+        <div class="miniform"><input type="text" id="apptNote" placeholder="Note (optional)" /><button id="apptAdd">Add</button></div>
+        <div id="apptList"></div>
+      </div>
+
+      <div class="hcard">
+        <div class="hh">❓ Questions for the doctor</div>
+        <div class="hsub2">Jot things down as they come up so nothing is forgotten.</div>
+        <div class="miniform"><input type="text" id="qAdd" placeholder="Add a question…" /><button id="qAddBtn">Add</button></div>
+        <div id="qList"></div>
+      </div>
+
+      <div class="hcard">
+        <div class="hh">⏰ Reminders</div>
+        <div class="hsub2">Add these to her phone's calendar so it alarms on its own — even offline.</div>
+        <button class="icsbtn" id="icsMeals"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><div><b>6 meal-time reminders</b><span>Daily at 6:30, 8:00, 11:00, 1:00, 4:30, 7:30, 9:30</span></div></button>
+        <button class="icsbtn" id="icsMeds"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><div><b>2 medicine reminders</b><span>Morning &amp; night steroid, daily</span></div></button>
+      </div>
+
+      <div class="hcard">
+        <div class="hh">🌱 Recovery journey</div>
+        <div class="journey" id="journey"></div>
+      </div>
     </section>
 
     <!-- ===== CARE ===== -->
@@ -507,6 +786,9 @@
 
       <div class="card pad gsec settings">
         <div class="gh"><span class="ge">⚙️</span> For family · settings</div>
+        <label class="setrow" for="bigText"><span>Bigger text<small>easier to read</small></span><input type="checkbox" id="bigText" class="switch" /></label>
+        <label class="setrow" for="hiContrast"><span>High contrast<small>stronger colours for low vision</small></span><input type="checkbox" id="hiContrast" class="switch" /></label>
+        <label class="setrow" for="tamilMeals"><span>Tamil meal names<small>show காலை உணவு etc. on Today</small></span><input type="checkbox" id="tamilMeals" class="switch" /></label>
         <label class="setrow" for="nutriToggle"><span>Show nutrition numbers on Today<small>protein, carbs &amp; calories — off keeps it simple for Amma</small></span><input type="checkbox" id="nutriToggle" class="switch" /></label>
         <div class="setrow"><span>Meal plan started on</span><input type="date" id="planStart" /></div>
         <div class="setrow"><span>Steroid taper started on</span><input type="date" id="steroidStart" /></div>
@@ -522,9 +804,13 @@
         <svg viewBox="0 0 24 24" fill="none"><path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
         <span>Today</span>
       </button>
-      <button class="tab" data-tab="foods">
+      <button class="tab" data-tab="meals">
         <svg viewBox="0 0 24 24" fill="none"><path d="M6 3v8a3 3 0 0 0 6 0V3M9 3v18M18 3c-1.5 1-2.5 3-2.5 6 0 2 1 3 2.5 3v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>Foods</span>
+        <span>Meals</span>
+      </button>
+      <button class="tab" data-tab="health">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 13h3l2-6 4 12 2.5-7 1.5 3H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Health</span>
       </button>
       <button class="tab" data-tab="care">
         <svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" stroke="currentColor" stroke-width="1.8"/></svg>
@@ -978,9 +1264,155 @@ var MAC={
   buttermilk:[2,4,1.5,45], curd:[3.5,5,4,75], bstem_juice:[3,12,1.8,83],
   guava:[2.5,14,1,68], jamun:[0.6,11,0.2,46], amla:[0.4,7,0.4,30], papaya:[0.6,13,0.3,50],
   almonds_few:[1.3,1.3,3,35], walnuts:[0.6,0.7,3,33], peanuts_handful:[5,4,8,110],
-  peanuts_few:[2.5,2,4,55], nuts_few:[1.5,2,4,50], ghee:[0,0,5,45], cornstarch:[0,15,0,60]
+  peanuts_few:[2.5,2,4,55], nuts_few:[1.5,2,4,50], ghee:[0,0,5,45], cornstarch:[0,15,0,60],
+  quinoa:[6,30,2,180], oats:[6,40,4,230]
 };
 var COUNT={idli:1,ragi_dosa:1,millet_dosa:1,wheat_dosa:1,pesarattu:1,adai:1,chapati:1,egg_boiled:1,egg_cooked:1};
+
+/* ===== MEAL BUILDER ===== */
+var BITEMS={
+  protein:[
+    {id:"egg",en:"Egg",ta:"முட்டை",mac:"egg_cooked",q:2,qn:"2 eggs"},
+    {id:"kollu",en:"Horse gram (kollu)",ta:"கொள்ளு",mac:"kollu_dal",q:1,qn:"1 small bowl"},
+    {id:"dal",en:"Dal / paruppu",ta:"பருப்பு",mac:"dal",q:1,qn:"1 small bowl"},
+    {id:"sprouts",en:"Sprouts",ta:"முளைப்பயறு",mac:"sprouts",q:1,qn:"1 handful"},
+    {id:"paneer",en:"Paneer",ta:"பன்னீர்",mac:"paneer",q:1,qn:"~50 g"},
+    {id:"sardine",en:"Sardine / mackerel",ta:"மத்தி / அயலை",mac:"fish_oily",q:1,qn:"1 piece"},
+    {id:"fishlean",en:"Seer / other fish",ta:"வஞ்சரம்",mac:"fish_lean",q:1,qn:"1 piece"},
+    {id:"soya",en:"Soya chunks",ta:"சோயா",mac:"soya",q:1,qn:"small bowl"},
+    {id:"curd",en:"Curd",ta:"தயிர்",mac:"curd",q:1,qn:"1 small bowl"},
+    {id:"groundnut",en:"Groundnut",ta:"வேர்க்கடலை",mac:"peanuts_handful",q:1,qn:"1 handful"},
+    {id:"chicken",en:"Chicken",ta:"கோழி",mac:"fish_lean",q:1,qn:"small",limit:true},
+    {id:"goat",en:"Goat (lean)",ta:"ஆட்டுக்கறி",mac:"goat",q:1,qn:"small",limit:true}
+  ],
+  base:[
+    {id:"millet",en:"Millet (ragi/kambu/samai)",ta:"சிறுதானியம்",mac:"millet_rice",q:1,qn:"1 cup"},
+    {id:"quinoa",en:"Quinoa",ta:"குயினோவா",mac:"quinoa",q:1,qn:"¾ cup cooked"},
+    {id:"rice",en:"Rice (small)",ta:"சாதம்",mac:"rice_small",q:1,qn:"~1 cup"},
+    {id:"chapati",en:"Wheat / chapati",ta:"கோதுமை",mac:"chapati",q:2,qn:"2 chapati"},
+    {id:"oats",en:"Oats",ta:"ஓட்ஸ்",mac:"oats",q:1,qn:"½ cup dry"},
+    {id:"none",en:"No grain",ta:"தானியம் வேண்டாம்",mac:null,q:0,qn:""}
+  ],
+  veg:[
+    {id:"keerai",en:"Greens (keerai)",ta:"கீரை",mac:"keerai_poriyal",q:1},
+    {id:"beans",en:"Cluster / broad beans",ta:"பீன்ஸ்",mac:"veg_poriyal",q:1},
+    {id:"carrot",en:"Carrot",ta:"கேரட்",mac:"veg_poriyal",q:1},
+    {id:"cabbage",en:"Cabbage",ta:"முட்டைகோஸ்",mac:"veg_poriyal",q:1},
+    {id:"gourd",en:"Gourd (snake/ridge/bottle)",ta:"சுரை / புடலை",mac:"veg_kootu",q:1},
+    {id:"brinjal",en:"Brinjal",ta:"கத்தரிக்காய்",mac:"veg_masala",q:1},
+    {id:"bittergourd",en:"Bitter gourd",ta:"பாகற்காய்",mac:"veg_poriyal",q:1},
+    {id:"bananaflower",en:"Banana flower / stem",ta:"வாழைப்பூ",mac:"veg_poriyal",q:1},
+    {id:"okra",en:"Ladies finger",ta:"வெண்டைக்காய்",mac:"veg_poriyal",q:1},
+    {id:"mixveg",en:"Mixed vegetables",ta:"கலவை காய்கறி",mac:"mixed_veg",q:1}
+  ],
+  extra:[
+    {id:"ghee",en:"1 tsp ghee",ta:"நெய்",mac:"ghee",q:1},
+    {id:"coconut",en:"Grated coconut",ta:"தேங்காய்",mac:"chutney_coconut",q:1},
+    {id:"tomato",en:"Onion / tomato",ta:"தக்காளி",mac:null,q:0},
+    {id:"lemon",en:"Lemon",ta:"எலுமிச்சை",mac:null,q:0}
+  ]
+};
+function biById(role,id){for(var i=0;i<BITEMS[role].length;i++){if(BITEMS[role][i].id===id)return BITEMS[role][i];}return null;}
+function bshort(bi){return bi?bi.en.replace(/\s*\(.*?\)/g,"").trim():"";}
+function blist(arr){return arr&&arr.length?arr.map(bshort).join(", "):"";}
+function pickMac(bi){if(!bi||!bi.mac)return [0,0,0,0];var m=MAC[bi.mac],q=bi.q||1;return [m[0]*q,m[1]*q,m[2]*q,m[3]*q];}
+var LEGUME=["kollu","dal","sprouts","groundnut","soya"];
+var STYLES=[
+  {id:"poriyal",en:"Poriyal (dry stir-fry)",ta:"பொரியல்",
+   name:function(c){return (c.prot[0]&&c.prot[0].id==="egg"?"Egg ":"")+bshort(c.veg[0]||{en:"vegetable"})+" poriyal"+(c.base?" with "+bshort(c.base):"");},
+   steps:function(c){var s=["Heat 1 tsp oil; splutter ½ tsp mustard seeds with a little urad dal and curry leaves."];
+     if(c.prot.some(function(p){return p.id==="egg";}))s.push("Pour in 2 beaten eggs, scramble lightly, push aside.");
+     s.push("Add "+(blist(c.veg)||"the vegetables")+", chopped; add salt and a pinch of turmeric.");
+     s.push("Sprinkle a little water, cover, cook on low till just soft (don't overcook greens).");
+     var leg=c.prot.filter(function(p){return LEGUME.indexOf(p.id)>=0;});
+     if(leg.length)s.push("Mix in the cooked "+blist(leg)+".");
+     if(c.extra.some(function(e){return e.id==="coconut";}))s.push("Finish with grated coconut.");
+     s.push("Serve warm"+(c.base?" with "+bshort(c.base):"")+".");return s;}},
+  {id:"kootu",en:"Kootu (dal + coconut)",ta:"கூட்டு",
+   name:function(c){return bshort(c.veg[0]||{en:"Vegetable"})+" kootu"+(c.base?" with "+bshort(c.base):"");},
+   steps:function(c){return [
+     "Pressure-cook "+(c.prot.some(function(p){return p.id==="dal";})?"dal":"a little moong dal")+" with turmeric until soft.",
+     "Add "+(blist(c.veg)||"the vegetables")+"; cook till tender.",
+     "Grind 2 tbsp coconut + ½ tsp cumin + 1 green chilli; stir in and simmer 3–4 min.",
+     "Temper mustard seeds & curry leaves in 1 tsp oil; pour over.",
+     "Serve with "+(c.base?bshort(c.base):"rice or millet")+"."];}},
+  {id:"kuzhambu",en:"Kuzhambu / curry",ta:"குழம்பு",
+   name:function(c){return bshort(c.prot[0]||c.veg[0]||{en:"Vegetable"})+" kuzhambu"+(c.base?" with "+bshort(c.base):"");},
+   steps:function(c){var s=["In 1 tsp oil, sauté onion, tomato and ginger-garlic with 1 tsp sambar/curry powder."];
+     if(c.veg.length)s.push("Add "+blist(c.veg)+".");
+     var mains=c.prot.filter(function(p){return ["sardine","fishlean","egg","paneer","soya","chicken","goat"].indexOf(p.id)>=0;});
+     if(mains.length)s.push("Add "+blist(mains)+".");
+     s.push("Add a small piece of tamarind (or a spoon of curd) with water; simmer till cooked and slightly thick.");
+     s.push("Serve with "+(c.base?bshort(c.base):"rice or millet")+".");return s;}},
+  {id:"onepot",en:"One-pot mixed rice",ta:"ஒரே பானை சாதம்",
+   name:function(c){return bshort(c.base||{en:"Millet"})+" "+bshort(c.veg[0]||{en:"vegetable"})+" one-pot";},
+   steps:function(c){var s=["Heat 1 tsp ghee/oil; temper mustard, cumin, curry leaves and a little ginger."];
+     s.push("Add "+(blist(c.veg)||"the vegetables")+"; sauté a few minutes.");
+     if(c.prot.length)s.push("Add "+blist(c.prot)+"; cook briefly.");
+     s.push("Fold in the cooked "+bshort(c.base||{en:"millet/rice"})+" with salt and a little pepper.");
+     s.push("Serve hot with curd on the side.");return s;}},
+  {id:"sundal",en:"Sundal (boiled & tempered)",ta:"சுண்டல்",
+   name:function(c){return bshort(c.prot[0]||{en:"Legume"})+" sundal";},
+   steps:function(c){return [
+     "Soak and boil "+(blist(c.prot)||"the legume")+" with a little salt till just soft; drain.",
+     "Temper mustard, urad dal, curry leaves and a dry red chilli in 1 tsp oil.",
+     "Add the boiled "+(blist(c.prot)||"legume")+"; toss 2 min.",
+     "Finish with grated coconut and a squeeze of lemon."+(c.base?" Serve with "+bshort(c.base)+".":"")];}},
+  {id:"soup",en:"Rasam / soup",ta:"ரசம் / சூப்",
+   name:function(c){return (c.prot[0]?bshort(c.prot[0])+" ":"")+"rasam / soup";},
+   steps:function(c){return [
+     "Boil "+(blist(c.veg)||"tomato")+" with turmeric, crushed garlic, pepper and cumin.",
+     c.prot.length?"Add "+blist(c.prot)+"; simmer till cooked.":"Stir in cooked dal water for body.",
+     "Add tamarind water or lemon and salt; warm through (don't boil hard).",
+     "Temper mustard, cumin and curry leaves; pour over. Sip warm"+(c.base?" or serve with "+bshort(c.base):"")+"."];}},
+  {id:"dosa",en:"Adai / dosa",ta:"அடை / தோசை",
+   name:function(c){return "Adai / dosa"+(c.veg[0]?" with "+bshort(c.veg[0]):"");},
+   steps:function(c){return [
+     "Soak rice/millet with dal (and a little kollu) 3–4 hrs; grind coarse with salt, ginger and pepper.",
+     c.veg.length?"Mix in finely chopped "+blist(c.veg)+".":"Add chopped onion and curry leaves.",
+     "Heat a tawa; spread a ladle thin; drizzle a few drops of oil.",
+     "Cook both sides till golden. Serve with chutney or curd."];}},
+  {id:"salad",en:"Salad / steamed",ta:"சாலட்",
+   name:function(c){return bshort(c.veg[0]||{en:"Vegetable"})+" salad";},
+   steps:function(c){return [
+     "Lightly steam (or keep raw) "+(blist(c.veg)||"the vegetables")+".",
+     c.prot.length?"Add "+blist(c.prot)+".":"Add a handful of sprouts for protein.",
+     "Toss with lemon, salt, pepper and a little roasted cumin.",
+     "Top with coriander; eat fresh."];}}
+];
+function styleById(id){for(var i=0;i<STYLES.length;i++){if(STYLES[i].id===id)return STYLES[i];}return STYLES[0];}
+function recommendStyles(sel){
+  var r=[];
+  var hasBase=sel.base&&sel.base!=="none", hasVeg=sel.veg.length, legume=sel.protein.some(function(id){return LEGUME.indexOf(id)>=0;});
+  if(hasVeg)r.push("poriyal");
+  if(hasVeg&&(sel.protein.indexOf("dal")>=0||!sel.protein.length))r.push("kootu");
+  if(sel.protein.length)r.push("kuzhambu");
+  if(hasBase&&hasVeg)r.push("onepot");
+  if(legume)r.push("sundal");
+  if(hasBase&&sel.protein.indexOf("dal")>=0)r.push("dosa");
+  if(hasVeg)r.push("salad");
+  r.push("soup");
+  return r.filter(function(v,i,a){return a.indexOf(v)===i;});
+}
+function composeMeal(sel,styleId){
+  var prot=sel.protein.map(function(id){return biById("protein",id);}).filter(Boolean);
+  var veg=sel.veg.map(function(id){return biById("veg",id);}).filter(Boolean);
+  var base=(sel.base&&sel.base!=="none")?biById("base",sel.base):null;
+  var extra=sel.extra.map(function(id){return biById("extra",id);}).filter(Boolean);
+  var style=styleById(styleId);
+  var c={prot:prot,veg:veg,base:base,extra:extra};
+  var all=[].concat(prot,veg,base?[base]:[],extra);
+  var P=0,C=0,F=0,K=0,items=[];
+  all.forEach(function(bi){var m=pickMac(bi);items.push({name:bshort(bi)+(bi.qn?(" · "+bi.qn):""),p:m[0],c:m[1],f:m[2],k:m[3]});P+=m[0];C+=m[1];F+=m[2];K+=m[3];});
+  var tips=[],good=prot.length>0&&veg.length>0;
+  if(!prot.length)tips.push("Add a protein (egg, dal, kollu, fish, paneer…) — protein is what keeps her sugar steady.");
+  if(!veg.length)tips.push("Add a vegetable or greens for fibre and slow release.");
+  if(base&&base.id==="rice")tips.push("With white rice, keep it to about 1 cup and be sure protein + veg are on the plate.");
+  if(prot.some(function(p){return p.limit;}))tips.push("Goat / chicken are fine once in a while — not every day.");
+  if(!base)tips.push("No grain is fine for a light meal; with more activity add millet or a little rice.");
+  return {name:style.name(c),items:items,macros:{p:P,c:C,f:F,k:K},steps:style.steps(c),good:good,tips:tips,style:style};
+}
+
 function classify(f){ // f = lowercased fragment
   if(/(warm water|coffee|tea)/.test(f) && !/almond|walnut|nut|egg|curd|milk|sundal/.test(f)) return null;
   if(f.indexOf("cornstarch")>=0) return "cornstarch";
@@ -1097,7 +1529,7 @@ function renderToday(){
     el.setAttribute("data-key",m.key);
     el.innerHTML='<div class="micon">'+m.i+'</div>'+
       '<div class="mtext">'+
-        '<div class="mhead"><span class="mta">'+m.en+'</span><span class="men">'+m.time+'</span>'+badges+'</div>'+
+        '<div class="mhead"><span class="mta">'+(tamilMeals?m.ta:m.en)+'</span><span class="men">'+(tamilMeals?(m.en+" · "):"")+m.time+'</span>'+badges+'</div>'+
         '<div class="mfood">'+m.f+'</div>'+nut+
       '</div>'+
       '<button class="tick" aria-label="Mark eaten"><span class="tickcircle"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>';
@@ -1119,6 +1551,8 @@ function renderToday(){
   document.getElementById("eatN").textContent=done;
   document.getElementById("eatBar").style.width=Math.round(done/6*100)+"%";
   renderDose();
+  renderMeds();
+  renderCustomToday();
   renderDayNut();
   renderGlucose();
   renderGreet();
@@ -1257,11 +1691,21 @@ function switchTab(name){
   document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("active",t.getAttribute("data-tab")===name);});
   document.querySelectorAll(".view").forEach(function(v){v.classList.remove("active");});
   document.getElementById("view-"+name).classList.add("active");
-  if(name==="foods"&&!built.foods){renderChips();renderFoods();built.foods=true;}
+  if(name==="meals"&&!built.meals){renderBuilderChips();renderChips();renderFoods();renderShop();renderSaved();built.meals=true;}
+  if(name==="health"&&!built.health){buildHealth();built.health=true;}
   if(name==="care"&&!built.care){renderTaper();built.care=true;}
   window.scrollTo({top:0,behavior:"auto"});
 }
 document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){switchTab(this.getAttribute("data-tab"));});});
+/* meals sub-nav */
+document.querySelectorAll("#mealsNav button").forEach(function(b){
+  b.addEventListener("click",function(){
+    var s=this.getAttribute("data-sub");
+    document.querySelectorAll("#mealsNav button").forEach(function(x){x.classList.toggle("on",x===b);});
+    document.querySelectorAll("#view-meals .subview").forEach(function(v){v.classList.toggle("on",v.id==="sub-"+s);});
+    window.scrollTo({top:0,behavior:"auto"});
+  });
+});
 
 /* ---------- service worker (PWA) ---------- */
 if("serviceWorker" in navigator && location.protocol.indexOf("http")===0){
@@ -1375,6 +1819,208 @@ document.getElementById("shareBtn").addEventListener("click",function(){
   if(navigator.share){navigator.share({title:"Amma's update",text:txt}).catch(function(){fallbackShare(txt);});}
   else fallbackShare(txt);
 });
+
+/* ===================== NEW FEATURES ===================== */
+function pad2(n){return String(n).padStart(2,"0");}
+function toast(msg){var t=document.createElement("div");t.textContent=msg;t.style.cssText="position:fixed;left:50%;bottom:112px;transform:translateX(-50%);background:#234F30;color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:99;box-shadow:0 6px 20px rgba(0,0,0,.25);";document.body.appendChild(t);setTimeout(function(){t.style.transition="opacity .4s";t.style.opacity="0";},1400);setTimeout(function(){t.remove();},1900);}
+function downloadFile(name,content,type){try{var blob=new Blob([content],{type:type||"text/plain"});var url=URL.createObjectURL(blob);var a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(url);a.remove();},600);}catch(e){alert("Couldn't create the file on this device.");}}
+
+/* ---- accessibility ---- */
+var bigText=load("amma_bigtext",false),hiContrast=load("amma_hicontrast",false),tamilMeals=load("amma_tamilmeals",false);
+function applyA11y(){document.body.classList.toggle("bigtext",bigText);document.body.classList.toggle("hicontrast",hiContrast);}
+
+/* ---- medicine tick ---- */
+function medsFor(iso){return load("amma_meds",{})[iso]||{};}
+function setMed(iso,k,v){var all=load("amma_meds",{});if(!all[iso])all[iso]={};all[iso][k]=v;store("amma_meds",all);}
+function renderMeds(){
+  var ti=taperInfo();
+  var ad=document.getElementById("medAmDose"),pd=document.getElementById("medPmDose");
+  if(ad)ad.textContent="60 mg";if(pd)pd.textContent=ti.done?"stopped":(ti.night+" mg");
+  var m=medsFor(viewedDate),am=document.getElementById("medAm"),pm=document.getElementById("medPm");
+  if(am)am.classList.toggle("taken",!!m.am);if(pm){pm.classList.toggle("taken",!!m.pm);pm.style.display=ti.done?"none":"";}
+}
+
+/* ---- read aloud ---- */
+var speaking=false;
+function speakToday(){
+  if(!("speechSynthesis" in window)){alert("Read-aloud isn't supported on this device.");return;}
+  if(speaking){speechSynthesis.cancel();speaking=false;return;}
+  var meals=dayMeals(planDayFor(viewedDate)),txt="Amma's meals for today. ";
+  meals.forEach(function(m){txt+=m.en+". "+m.f.replace(/·/g,", ")+". ";});
+  var u=new SpeechSynthesisUtterance(txt);u.lang="en-IN";u.rate=.92;u.onend=function(){speaking=false;};speaking=true;speechSynthesis.speak(u);
+}
+
+/* ---- custom meals added to today ---- */
+function renderCustomToday(){
+  var iso=viewedDate,arr=(load("amma_customtoday",{})[iso])||[],meals=document.getElementById("meals");
+  if(!meals)return;
+  meals.querySelectorAll(".meal.custom").forEach(function(n){n.remove();});
+  arr.forEach(function(m,i){var el=document.createElement("div");el.className="meal custom";
+    el.innerHTML='<div class="micon">🍲</div><div class="mtext"><div class="mhead"><span class="mta">'+m.name+'</span><span class="men">your dish · '+m.style+'</span></div></div><button class="tick" aria-label="Remove" style="font-size:20px;color:var(--ink-faint);">✕</button>';
+    el.querySelector(".tick").addEventListener("click",function(){var a=load("amma_customtoday",{});(a[iso]||[]).splice(i,1);store("amma_customtoday",a);renderCustomToday();});
+    meals.appendChild(el);});
+}
+function addMealToToday(r){var all=load("amma_customtoday",{}),iso=todayISO();if(!all[iso])all[iso]=[];all[iso].push({name:r.name,style:r.style.en});store("amma_customtoday",all);toast("Added to today ✓");if(viewedDate===iso)renderCustomToday();}
+
+/* ---- meal builder ---- */
+var bsel={protein:[],veg:[],extra:[],base:null,style:null};
+function fillChips(elId,role){
+  var el=document.getElementById(elId);if(!el)return;el.innerHTML="";
+  BITEMS[role].forEach(function(bi){
+    var on=role==="base"?(bsel.base===bi.id):(bsel[role].indexOf(bi.id)>=0);
+    var b=document.createElement("button");b.className="bchip"+(on?" on":"")+(bi.limit?" lim":"");
+    b.innerHTML=bshort(bi)+(bi.ta?' <span class="bx-ta">'+bi.ta+'</span>':'');
+    b.addEventListener("click",function(){
+      if(role==="base"){bsel.base=(bsel.base===bi.id)?null:bi.id;}
+      else{var i=bsel[role].indexOf(bi.id);if(i>=0)bsel[role].splice(i,1);else bsel[role].push(bi.id);}
+      fillChips(elId,role);renderStyleChips();updateMakeState();
+    });
+    el.appendChild(b);
+  });
+}
+function renderStyleChips(){
+  var el=document.getElementById("bgStyle");if(!el)return;el.innerHTML="";
+  var rec=recommendStyles(bsel);
+  var ordered=rec.concat(STYLES.map(function(s){return s.id;}).filter(function(id){return rec.indexOf(id)<0;}));
+  ordered.forEach(function(id){var s=styleById(id),on=bsel.style===id;
+    var b=document.createElement("button");b.className="bchip"+(on?" on":"");
+    b.innerHTML=s.en+(rec.indexOf(id)>=0?" ⭐":"");
+    b.addEventListener("click",function(){bsel.style=id;renderStyleChips();updateMakeState();});
+    el.appendChild(b);
+  });
+}
+function renderBuilderChips(){fillChips("bgProtein","protein");fillChips("bgBase","base");fillChips("bgVeg","veg");fillChips("bgExtra","extra");renderStyleChips();updateMakeState();}
+function updateMakeState(){var any=bsel.protein.length||bsel.veg.length||bsel.base;var b=document.getElementById("bldMake");if(b)b.disabled=!(any&&bsel.style);}
+function showResult(){
+  var r=composeMeal({protein:bsel.protein,veg:bsel.veg,base:bsel.base,extra:bsel.extra},bsel.style);
+  var ing=r.items.map(function(it){var p=it.name.split(" · ");return '<div class="br-ing"><b>'+p[0]+'</b><span>'+(p[1]||"")+'</span></div>';}).join("");
+  var steps=r.steps.map(function(s,i){return '<div class="br-step"><div class="bs-n">'+(i+1)+'</div><div>'+s+'</div></div>';}).join("");
+  var mac='<div class="br-mac"><div class="bm"><b>'+R(r.macros.p)+'g</b><span>PROTEIN</span></div><div class="bm"><b>'+R(r.macros.c)+'g</b><span>CARBS</span></div><div class="bm"><b>'+R(r.macros.f)+'g</b><span>FAT</span></div><div class="bm"><b>'+R(r.macros.k)+'</b><span>KCAL</span></div></div>';
+  var verdict=(r.good&&!r.tips.length)?'<div class="br-verdict ok"><b>✓ A good plate for her</b> — protein, slow carbs and vegetables together.</div>'
+    :'<div class="br-verdict '+(r.good?'ok':'tip')+'">'+(r.good?'<b>✓ Good — a couple of tips:</b>':'<b>A few tips to make it better:</b>')+'<ul>'+r.tips.map(function(t){return '<li>'+t+'</li>';}).join("")+'</ul></div>';
+  document.getElementById("bldResult").innerHTML=
+    '<div class="bld-result"><div class="br-head"><div class="br-name">'+r.name+'</div><div class="br-style">'+r.style.en+' · '+r.style.ta+'</div></div>'+
+    '<div class="br-body"><div class="br-sec">What you need</div>'+ing+mac+
+    '<div class="br-sec" style="margin-top:15px;">How to make it</div>'+steps+verdict+
+    '<div class="br-actions"><button id="brSave">♥ Save</button><button class="prime" id="brToday">+ Add to today</button></div></div></div>';
+  document.getElementById("brSave").addEventListener("click",function(){saveMeal(r);});
+  document.getElementById("brToday").addEventListener("click",function(){addMealToToday(r);});
+  document.getElementById("bldResult").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function saveMeal(r){var arr=load("amma_savedmeals",[]);arr.unshift({name:r.name,style:r.style.en,macros:r.macros});store("amma_savedmeals",arr);renderSaved();toast("Saved to favourites ♥");}
+function renderSaved(){
+  var wrap=document.getElementById("bldSaved");if(!wrap)return;var arr=load("amma_savedmeals",[]);
+  if(!arr.length){wrap.innerHTML="";return;}
+  wrap.innerHTML='<div class="br-sec">Saved meals</div>';
+  arr.forEach(function(m,i){var el=document.createElement("div");el.className="savedmeal";
+    el.innerHTML='<div class="sm-n">'+m.name+'<div class="sm-k">'+Math.round(m.macros.p)+'g protein · '+Math.round(m.macros.k)+' kcal · '+m.style+'</div></div><span class="sm-x">✕</span>';
+    el.querySelector(".sm-x").addEventListener("click",function(){var a=load("amma_savedmeals",[]);a.splice(i,1);store("amma_savedmeals",a);renderSaved();});
+    wrap.appendChild(el);});
+}
+
+/* ---- shopping list ---- */
+var SHOP_SEED=[
+  {g:"Grains",items:["Rice","Ragi / kambu / samai","Wheat flour / oats","Quinoa"]},
+  {g:"Protein",items:["Eggs","Sardine / mackerel","Kollu (horse gram)","Toor / moong dal","Paneer","Groundnuts"]},
+  {g:"Greens & veg",items:["Keerai (greens)","Cluster beans","Carrot / beans","Bottle / snake gourd","Drumstick","Tomato / onion"]},
+  {g:"Dairy & fats",items:["Curd / milk","Ghee","Gingelly (sesame) oil"]},
+  {g:"Always keep",items:["Cornstarch (for bedtime)","Almonds & walnuts","Turmeric, garlic, ginger","Lemon"]},
+  {g:"Fruit",items:["Guava / papaya","Amla / jamun"]}
+];
+function renderShop(){
+  var wrap=document.getElementById("shopList");if(!wrap)return;wrap.innerHTML="";
+  var got=load("amma_shop",{}),custom=load("amma_shop_custom",[]);
+  var groups=SHOP_SEED.slice();if(custom.length)groups=groups.concat([{g:"Added",items:custom}]);
+  groups.forEach(function(grp){
+    var h='<div class="shopgroup"><div class="sgh">'+grp.g+'</div>';
+    grp.items.forEach(function(it){var on=!!got[it];
+      h+='<div class="shopitem'+(on?" got":"")+'" data-it="'+it.replace(/"/g,"")+'"><span class="si-c"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="si-n">'+it+'</span></div>';});
+    h+='</div>';wrap.insertAdjacentHTML("beforeend",h);
+  });
+  wrap.querySelectorAll(".shopitem").forEach(function(el){el.addEventListener("click",function(){var it=this.getAttribute("data-it"),g=load("amma_shop",{});g[it]=!g[it];store("amma_shop",g);renderShop();});});
+}
+
+/* ---- health: sugar trends ---- */
+function parseHour(t){var m=/(\d+):(\d+)\s*(am|pm)/i.exec(t||"");if(!m)return 12;var h=parseInt(m[1],10)%12;if(/pm/i.test(m[3]))h+=12;return h+parseInt(m[2],10)/60;}
+function allReadings(){var g=load("amma_glucose",{}),arr=[];Object.keys(g).forEach(function(iso){(g[iso]||[]).forEach(function(r){arr.push({iso:iso,v:r.v,hour:parseHour(r.t),t:r.t});});});arr.sort(function(a,b){return a.iso===b.iso?a.hour-b.hour:(a.iso<b.iso?-1:1);});return arr;}
+function drawSug(cv,arr){
+  var dpr=window.devicePixelRatio||1,w=cv.clientWidth||300,h=cv.clientHeight||170;
+  cv.width=w*dpr;cv.height=h*dpr;var x=cv.getContext("2d");x.scale(dpr,dpr);x.clearRect(0,0,w,h);
+  var top=10,bot=h-18,left=26,right=w-6,mn=40,mx=260;
+  function Y(v){return bot-(v-mn)/(mx-mn)*(bot-top);}
+  x.fillStyle="rgba(46,107,67,.07)";x.fillRect(left,Y(180),right-left,Y(70)-Y(180));
+  x.strokeStyle="#e2b3ab";x.lineWidth=1;x.setLineDash([4,4]);x.beginPath();x.moveTo(left,Y(70));x.lineTo(right,Y(70));x.stroke();x.setLineDash([]);
+  x.fillStyle="#b0552e";x.font="10px sans-serif";x.fillText("70",2,Y(70)+3);x.fillStyle="#988873";x.fillText("180",0,Y(180)+3);
+  if(!arr.length)return;
+  var n=arr.length,dx=(right-left)/Math.max(n-1,1);
+  x.strokeStyle="#2E6B43";x.lineWidth=2;x.beginPath();
+  arr.forEach(function(r,i){var px=left+dx*i,py=Y(Math.max(mn,Math.min(mx,r.v)));if(i===0)x.moveTo(px,py);else x.lineTo(px,py);});x.stroke();
+  arr.forEach(function(r,i){var px=left+dx*i,py=Y(Math.max(mn,Math.min(mx,r.v)));x.beginPath();x.arc(px,py,3.5,0,7);x.fillStyle=r.v<70?"#B42318":(r.v>180?"#CF8E24":"#2E6B43");x.fill();});
+}
+function renderSugar(){
+  var cv=document.getElementById("sugCanvas");if(!cv)return;var arr=allReadings();drawSug(cv,arr.slice(-24));
+  var stat=document.getElementById("sugStat"),flag=document.getElementById("sugFlag");
+  if(!arr.length){stat.innerHTML="";flag.innerHTML='<div class="sugflag good">No readings yet. Note a few on the Today screen and the trend will appear here.</div>';return;}
+  var vals=arr.map(function(r){return r.v;}),lo=Math.min.apply(null,vals),hi=Math.max.apply(null,vals),avg=Math.round(vals.reduce(function(a,b){return a+b;},0)/vals.length);
+  var inr=Math.round(arr.filter(function(r){return r.v>=70&&r.v<=180;}).length/arr.length*100);
+  stat.innerHTML='<div class="ss"><b style="color:var(--green-deep)">'+avg+'</b><span>AVERAGE</span></div><div class="ss"><b style="color:'+(lo<70?'var(--red)':'var(--ink)')+'">'+lo+'</b><span>LOWEST</span></div><div class="ss"><b>'+hi+'</b><span>HIGHEST</span></div><div class="ss"><b>'+inr+'%</b><span>IN RANGE</span></div>';
+  var lows=arr.filter(function(r){return r.v<70;}),night=lows.filter(function(r){return r.hour>=22||r.hour<6;});
+  if(lows.length)flag.innerHTML='<div class="sugflag warn"><b>'+lows.length+' low reading'+(lows.length>1?'s':'')+' under 70'+(night.length?' ('+night.length+' overnight)':'')+'.</b> Lows overnight or a few hours after meals are the main risk in her condition — please share the timing with her doctor.</div>';
+  else flag.innerHTML='<div class="sugflag good">No lows under 70 in these readings — steady is exactly what we want. 💚</div>';
+}
+
+/* ---- health: hypo log / water / lab / appts / questions ---- */
+function renderHypo(){var wrap=document.getElementById("hypoList");if(!wrap)return;var arr=load("amma_hypo",[]);wrap.innerHTML=arr.length?"":'<div class="logempty">No low episodes logged — good.</div>';arr.forEach(function(r,i){var el=document.createElement("div");el.className="logitem";el.innerHTML='<span class="li-d">'+r.d+'</span><span class="li-t">'+r.what+'</span><span class="li-x">✕</span>';el.querySelector(".li-x").addEventListener("click",function(){var a=load("amma_hypo",[]);a.splice(i,1);store("amma_hypo",a);renderHypo();});wrap.appendChild(el);});}
+function renderWater(){var iso=todayISO(),w=(load("amma_water",{})[iso])||0,el=document.getElementById("waterN");if(!el)return;el.textContent=w;var gr=document.getElementById("glassRow");gr.innerHTML="";for(var i=0;i<8;i++)gr.insertAdjacentHTML("beforeend",'<span class="glass'+(i<w?" full":"")+'">🥛</span>');}
+function addWater(n){var all=load("amma_water",{}),iso=todayISO(),w=((all[iso])||0)+n;if(w<0)w=0;if(w>16)w=16;all[iso]=w;store("amma_water",all);renderWater();}
+function renderLab(){var wrap=document.getElementById("labList");if(!wrap)return;var arr=load("amma_labs",[]);wrap.innerHTML=arr.length?"":'<div class="logempty">No results yet.</div>';arr.forEach(function(r,i){var el=document.createElement("div");el.className="logitem";el.innerHTML='<span class="li-d">'+r.date+'</span><span class="li-t">'+r.name+'</span><span class="li-v">'+r.val+'</span><span class="li-x">✕</span>';el.querySelector(".li-x").addEventListener("click",function(){var a=load("amma_labs",[]);a.splice(i,1);store("amma_labs",a);renderLab();});wrap.appendChild(el);});}
+function renderAppts(){
+  var wrap=document.getElementById("apptList");if(!wrap)return;var arr=load("amma_appts",[]).slice();
+  arr.sort(function(a,b){return (a.date||"9")<(b.date||"9")?-1:1;});
+  wrap.innerHTML=arr.length?"":'<div class="logempty">No appointments yet.</div>';
+  arr.forEach(function(r){var el=document.createElement("div");el.className="logitem";var ds=r.date?prettyDate(r.date):"—";
+    el.innerHTML='<span class="li-d">'+ds+'</span><span class="li-t">'+r.title+(r.note?' <span style="color:var(--ink-faint)">· '+r.note+'</span>':'')+'</span><span class="li-x cal">📅</span><span class="li-x rm">✕</span>';
+    el.querySelector(".cal").addEventListener("click",function(){downloadFile("appointment.ics",buildApptICS(r),"text/calendar");});
+    el.querySelector(".rm").addEventListener("click",function(){var a=load("amma_appts",[]);for(var k=0;k<a.length;k++){if(a[k].title===r.title&&a[k].date===r.date){a.splice(k,1);break;}}store("amma_appts",a);renderAppts();});
+    wrap.appendChild(el);});
+}
+function renderQs(){var wrap=document.getElementById("qList");if(!wrap)return;var arr=load("amma_qs",[]);wrap.innerHTML=arr.length?"":'<div class="logempty">No questions yet.</div>';arr.forEach(function(r,i){var el=document.createElement("div");el.className="qrow"+(r.done?" done":"");el.innerHTML='<span class="qc"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="qt">'+r.text+'</span><span class="qx">✕</span>';el.querySelector(".qc").addEventListener("click",function(){var a=load("amma_qs",[]);a[i].done=!a[i].done;store("amma_qs",a);renderQs();});el.querySelector(".qx").addEventListener("click",function(){var a=load("amma_qs",[]);a.splice(i,1);store("amma_qs",a);renderQs();});wrap.appendChild(el);});}
+function renderJourney(){
+  var el=document.getElementById("journey");if(!el)return;var ti=taperInfo();
+  var pct=Math.min(Math.round((ti.done?6:ti.week)/6*100),100);
+  var line=ti.done?"The night dose has reached 0 — time for the Amrita review. What a journey. 🌿":("Week "+ti.week+" of about 5 · night dose down to "+ti.night+" mg. Going steadily — every week is real progress. 🌿");
+  el.innerHTML='<div class="jt"><b>Steroid taper progress</b></div><div class="jbar"><i style="width:'+pct+'%"></i></div><div class="jt">'+line+'</div>';
+}
+function buildHealth(){renderSugar();renderHypo();renderWater();renderLab();renderAppts();renderQs();renderJourney();}
+
+/* ---- calendar (.ics) ---- */
+function buildRecurringICS(events){var s=dstampNow();var L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Amma Care//EN","CALSCALE:GREGORIAN"];events.forEach(function(e){var dt=s+"T"+pad2(e.h)+pad2(e.m)+"00";L.push("BEGIN:VEVENT","UID:"+e.uid+"-"+s+"@ammacare","DTSTAMP:"+dt,"DTSTART:"+dt,"RRULE:FREQ=DAILY","SUMMARY:"+e.s,"BEGIN:VALARM","TRIGGER:PT0M","ACTION:DISPLAY","DESCRIPTION:"+e.s,"END:VALARM","END:VEVENT");});L.push("END:VCALENDAR");return L.join("\r\n");}
+function buildApptICS(a){var d=(a.date||todayISO()).replace(/-/g,"");var L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Amma Care//EN","BEGIN:VEVENT","UID:appt-"+d+"-"+Math.random().toString(36).slice(2)+"@ammacare","DTSTAMP:"+d+"T090000","DTSTART;VALUE=DATE:"+d,"SUMMARY:Amma — "+a.title,"DESCRIPTION:"+(a.note||""),"BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:Amma appointment tomorrow","END:VALARM","END:VEVENT","END:VCALENDAR"];return L.join("\r\n");}
+function dstampNow(){var d=new Date();return d.getFullYear()+pad2(d.getMonth()+1)+pad2(d.getDate());}
+
+/* ---- wiring ---- */
+(function(){
+  var medAm=document.getElementById("medAm"),medPm=document.getElementById("medPm");
+  if(medAm)medAm.addEventListener("click",function(){setMed(viewedDate,"am",!medsFor(viewedDate).am);renderMeds();});
+  if(medPm)medPm.addEventListener("click",function(){setMed(viewedDate,"pm",!medsFor(viewedDate).pm);renderMeds();});
+  var rb=document.getElementById("readBtn");if(rb)rb.addEventListener("click",speakToday);
+  var bt=document.getElementById("bigText"),hc=document.getElementById("hiContrast"),tm=document.getElementById("tamilMeals");
+  if(bt){bt.checked=bigText;bt.addEventListener("change",function(){bigText=this.checked;store("amma_bigtext",bigText);applyA11y();});}
+  if(hc){hc.checked=hiContrast;hc.addEventListener("change",function(){hiContrast=this.checked;store("amma_hicontrast",hiContrast);applyA11y();});}
+  if(tm){tm.checked=tamilMeals;tm.addEventListener("change",function(){tamilMeals=this.checked;store("amma_tamilmeals",tamilMeals);renderToday();});}
+  var bm=document.getElementById("bldMake");if(bm)bm.addEventListener("click",showResult);
+  var sab=document.getElementById("shopAddBtn");if(sab)sab.addEventListener("click",function(){var i=document.getElementById("shopAdd"),v=i.value.trim();if(!v)return;var c=load("amma_shop_custom",[]);c.push(v);store("amma_shop_custom",c);i.value="";renderShop();});
+  var sr=document.getElementById("shopReset");if(sr)sr.addEventListener("click",function(){store("amma_shop",{});renderShop();});
+  var ha=document.getElementById("hypoAdd");if(ha)ha.addEventListener("click",function(){var i=document.getElementById("hypoWhat"),w=i.value.trim();if(!w)return;var now=new Date(),d=now.getDate()+" "+MON[now.getMonth()]+", "+((now.getHours()%12)||12)+":"+pad2(now.getMinutes())+(now.getHours()>=12?"pm":"am");var a=load("amma_hypo",[]);a.unshift({d:d,what:w});store("amma_hypo",a);i.value="";renderHypo();});
+  var wp=document.getElementById("waterPlus"),wm=document.getElementById("waterMinus");
+  if(wp)wp.addEventListener("click",function(){addWater(1);});if(wm)wm.addEventListener("click",function(){addWater(-1);});
+  var la=document.getElementById("labAdd");if(la)la.addEventListener("click",function(){var n=document.getElementById("labName"),v=document.getElementById("labVal");if(!n.value.trim()||!v.value.trim())return;var a=load("amma_labs",[]);a.unshift({date:(MON[new Date().getMonth()]+" "+new Date().getDate()),name:n.value.trim(),val:v.value.trim()});store("amma_labs",a);n.value="";v.value="";renderLab();});
+  var aa=document.getElementById("apptAdd");if(aa)aa.addEventListener("click",function(){var t=document.getElementById("apptTitle"),d=document.getElementById("apptDate"),nt=document.getElementById("apptNote");if(!t.value.trim())return;var a=load("amma_appts",[]);a.push({title:t.value.trim(),date:d.value,note:nt.value.trim()});store("amma_appts",a);t.value="";nt.value="";renderAppts();});
+  var qa=document.getElementById("qAddBtn");if(qa)qa.addEventListener("click",function(){var i=document.getElementById("qAdd"),v=i.value.trim();if(!v)return;var a=load("amma_qs",[]);a.push({text:v,done:false});store("amma_qs",a);i.value="";renderQs();});
+  var im=document.getElementById("icsMeals");if(im)im.addEventListener("click",function(){downloadFile("amma-meals.ics",buildRecurringICS([{uid:"wake",h:6,m:30,s:"Amma — warm water & soaked nuts"},{uid:"bf",h:8,m:0,s:"Amma — Breakfast"},{uid:"mid",h:11,m:0,s:"Amma — Mid-morning snack"},{uid:"lunch",h:13,m:0,s:"Amma — Lunch"},{uid:"eve",h:16,m:30,s:"Amma — Evening snack"},{uid:"dinner",h:19,m:30,s:"Amma — Dinner"},{uid:"bed",h:21,m:30,s:"Amma — Bedtime cornstarch"}]),"text/calendar");toast("Calendar file downloaded");});
+  var imd=document.getElementById("icsMeds");if(imd)imd.addEventListener("click",function(){downloadFile("amma-medicine.ics",buildRecurringICS([{uid:"medam",h:8,m:0,s:"Amma — morning steroid (60 mg)"},{uid:"medpm",h:20,m:0,s:"Amma — night steroid"}]),"text/calendar");toast("Calendar file downloaded");});
+})();
+applyA11y();
 
 /* ---------- init ---------- */
 renderToday();
