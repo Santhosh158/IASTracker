@@ -342,6 +342,26 @@
   .medbtn.taken .mb-ic{background:var(--green);border-color:var(--green);}
   .medbtn.taken .mb-ic svg{opacity:1;transform:scale(1);}
   .medbtn.taken .mb-l b{color:var(--green-deep);}
+  .medsub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);margin:2px 0 8px;}
+  .medextra{margin-top:13px;display:flex;flex-direction:column;gap:8px;}
+  .medextra:empty{display:none;}
+  .medx{display:flex;align-items:center;gap:11px;border:1.5px solid var(--border-strong);background:var(--surface-2);border-radius:13px;padding:11px 13px;cursor:pointer;transition:all .15s;}
+  .medx .mx-c{width:26px;height:26px;flex:0 0 auto;border-radius:50%;border:2px solid var(--border-strong);display:grid;place-items:center;}
+  .medx .mx-c svg{width:15px;height:15px;opacity:0;transform:scale(.5);transition:.15s;}
+  .medx .mx-l{flex:1;min-width:0;}
+  .medx .mx-l b{font-size:14.5px;font-weight:700;color:var(--ink);display:block;line-height:1.25;}
+  .medx .mx-l span{font-size:12px;color:var(--ink-soft);}
+  .medx.taken{border-color:#bcd9c2;background:var(--green-soft);}
+  .medx.taken .mx-c{background:var(--green);border-color:var(--green);}
+  .medx.taken .mx-c svg{opacity:1;transform:scale(1);}
+  .medx.taken .mx-l b{color:var(--green-deep);}
+  /* medicine editor (settings) */
+  .me-item{border:1px solid var(--border);border-radius:14px;padding:12px;margin-bottom:10px;background:var(--surface-2);}
+  .me-item input{width:100%;border:1.5px solid var(--border-strong);border-radius:10px;padding:10px 11px;font-size:15px;font-family:inherit;background:var(--surface);color:var(--ink);margin-bottom:8px;}
+  .me-two{display:flex;gap:8px;}
+  .me-two input{margin-bottom:0;}
+  .me-rm{background:none;border:none;color:var(--red);font-size:13px;font-weight:700;cursor:pointer;padding:6px 2px 0;}
+  .addmed{width:100%;border:1.5px dashed var(--border-strong);background:var(--surface-2);color:var(--green-deep);border-radius:13px;padding:13px;font-size:14.5px;font-weight:700;cursor:pointer;margin-top:2px;}
 
   .readaloud{display:inline-flex;align-items:center;gap:7px;background:var(--gold-soft);border:1px solid #ecdcb6;color:var(--gold-deep);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;}
   .readaloud svg{width:16px;height:16px;}
@@ -486,7 +506,6 @@
   <main>
     <!-- ===== TODAY ===== -->
     <section class="view active" id="view-today">
-      <div class="greet" id="greet">Vanakkam 🌿</div>
       <div class="bday" id="bday" hidden></div>
       <div class="daterow">
         <button class="navbtn" id="prevDay" aria-label="Previous day">‹</button>
@@ -507,10 +526,12 @@
 
       <div class="medcard">
         <div class="mc-h">💊 Medicine today</div>
+        <div class="medsub">Steroid</div>
         <div class="medrow">
           <button class="medbtn" data-med="am" id="medAm"><span class="mb-ic"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mb-l"><b>Morning</b><span id="medAmDose">60 mg</span></span></button>
           <button class="medbtn" data-med="pm" id="medPm"><span class="mb-ic"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mb-l"><b>Night</b><span id="medPmDose">50 mg</span></span></button>
         </div>
+        <div class="medextra" id="medExtra"></div>
       </div>
 
       <button class="lowbtn" id="lowBtn">
@@ -782,6 +803,13 @@
         <div class="gh"><span class="ge">🩸</span> If her sugar drops low</div>
         <p class="gp">Signs: shakiness, sweating, sudden hunger, dizziness, fast heartbeat, weakness, confusion. Tap the red button on the Today screen any time for the steps.</p>
         <button class="lowbtn" id="lowBtn2" style="margin-top:4px;"><span class="lb1">Show the low-sugar steps</span></button>
+      </div>
+
+      <div class="card pad gsec">
+        <div class="gh"><span class="ge">💊</span> Her medicines</div>
+        <p class="gp">These show as a daily checklist on the Today screen. Edit the names, doses and timing here — the steroid is tracked separately and follows the taper automatically.</p>
+        <div id="medEditor"></div>
+        <button class="addmed" id="addMedBtn">+ Add a medicine</button>
       </div>
 
       <div class="card pad gsec settings">
@@ -1555,7 +1583,6 @@ function renderToday(){
   renderCustomToday();
   renderDayNut();
   renderGlucose();
-  renderGreet();
   renderBday();
   renderNextMeal();
   renderFeel();
@@ -1693,7 +1720,7 @@ function switchTab(name){
   document.getElementById("view-"+name).classList.add("active");
   if(name==="meals"&&!built.meals){renderBuilderChips();renderChips();renderFoods();renderShop();renderSaved();built.meals=true;}
   if(name==="health"&&!built.health){buildHealth();built.health=true;}
-  if(name==="care"&&!built.care){renderTaper();built.care=true;}
+  if(name==="care"&&!built.care){renderTaper();renderMedEditor();built.care=true;}
   window.scrollTo({top:0,behavior:"auto"});
 }
 document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){switchTab(this.getAttribute("data-tab"));});});
@@ -1832,13 +1859,49 @@ function applyA11y(){document.body.classList.toggle("bigtext",bigText);document.
 /* ---- medicine tick ---- */
 function medsFor(iso){return load("amma_meds",{})[iso]||{};}
 function setMed(iso,k,v){var all=load("amma_meds",{});if(!all[iso])all[iso]={};all[iso][k]=v;store("amma_meds",all);}
+var MEDLIST_DEFAULT=[
+  {id:"m_cal",name:"Shelcal 500",dose:"1 tablet",when:"After breakfast"},
+  {id:"m_bp",name:"BP medicine",dose:"",when:"Morning"},
+  {id:"m_gas",name:"Gastric medicine",dose:"",when:"Before breakfast"},
+  {id:"m_pro",name:"Probiotic",dose:"",when:"With food"}
+];
+function medList(){var v=load("amma_medlist",null);if(!v){store("amma_medlist",MEDLIST_DEFAULT);return MEDLIST_DEFAULT.slice();}return v;}
+function saveMedList(a){store("amma_medlist",a);}
 function renderMeds(){
   var ti=taperInfo();
   var ad=document.getElementById("medAmDose"),pd=document.getElementById("medPmDose");
   if(ad)ad.textContent="60 mg";if(pd)pd.textContent=ti.done?"stopped":(ti.night+" mg");
   var m=medsFor(viewedDate),am=document.getElementById("medAm"),pm=document.getElementById("medPm");
   if(am)am.classList.toggle("taken",!!m.am);if(pm){pm.classList.toggle("taken",!!m.pm);pm.style.display=ti.done?"none":"";}
+  var ex=document.getElementById("medExtra");if(!ex)return;
+  var list=medList();ex.innerHTML="";
+  list.forEach(function(med){
+    var on=!!m[med.id];
+    var sub=[med.dose,med.when].filter(Boolean).join(" · ");
+    var el=document.createElement("div");el.className="medx"+(on?" taken":"");
+    el.innerHTML='<span class="mx-c"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mx-l"><b>'+(med.name||"Medicine")+'</b>'+(sub?'<span>'+sub+'</span>':'')+'</span>';
+    el.addEventListener("click",function(){setMed(viewedDate,med.id,!medsFor(viewedDate)[med.id]);renderMeds();});
+    ex.appendChild(el);
+  });
 }
+function renderMedEditor(){
+  var wrap=document.getElementById("medEditor");if(!wrap)return;
+  var list=medList();wrap.innerHTML="";
+  list.forEach(function(med){
+    var item=document.createElement("div");item.className="me-item";
+    item.innerHTML='<input class="me-name" placeholder="Medicine name" value="'+(med.name||"").replace(/"/g,"&quot;")+'">'+
+      '<div class="me-two"><input class="me-dose" placeholder="Dose (e.g. 500 mg)" value="'+(med.dose||"").replace(/"/g,"&quot;")+'"><input class="me-when" placeholder="When (e.g. after breakfast)" value="'+(med.when||"").replace(/"/g,"&quot;")+'"></div>'+
+      '<button class="me-rm">Remove</button>';
+    function upd(field,val){var a=medList();for(var i=0;i<a.length;i++){if(a[i].id===med.id){a[i][field]=val;break;}}saveMedList(a);renderMeds();}
+    item.querySelector(".me-name").addEventListener("input",function(){upd("name",this.value);});
+    item.querySelector(".me-dose").addEventListener("input",function(){upd("dose",this.value);});
+    item.querySelector(".me-when").addEventListener("input",function(){upd("when",this.value);});
+    item.querySelector(".me-rm").addEventListener("click",function(){var a=medList().filter(function(x){return x.id!==med.id;});saveMedList(a);renderMedEditor();renderMeds();});
+    wrap.appendChild(item);
+  });
+}
+function addMed(){var a=medList();a.push({id:"m_"+Date.now().toString(36),name:"",dose:"",when:""});saveMedList(a);renderMedEditor();renderMeds();}
+
 
 /* ---- read aloud ---- */
 var speaking=false;
@@ -2017,6 +2080,7 @@ function dstampNow(){var d=new Date();return d.getFullYear()+pad2(d.getMonth()+1
   var la=document.getElementById("labAdd");if(la)la.addEventListener("click",function(){var n=document.getElementById("labName"),v=document.getElementById("labVal");if(!n.value.trim()||!v.value.trim())return;var a=load("amma_labs",[]);a.unshift({date:(MON[new Date().getMonth()]+" "+new Date().getDate()),name:n.value.trim(),val:v.value.trim()});store("amma_labs",a);n.value="";v.value="";renderLab();});
   var aa=document.getElementById("apptAdd");if(aa)aa.addEventListener("click",function(){var t=document.getElementById("apptTitle"),d=document.getElementById("apptDate"),nt=document.getElementById("apptNote");if(!t.value.trim())return;var a=load("amma_appts",[]);a.push({title:t.value.trim(),date:d.value,note:nt.value.trim()});store("amma_appts",a);t.value="";nt.value="";renderAppts();});
   var qa=document.getElementById("qAddBtn");if(qa)qa.addEventListener("click",function(){var i=document.getElementById("qAdd"),v=i.value.trim();if(!v)return;var a=load("amma_qs",[]);a.push({text:v,done:false});store("amma_qs",a);i.value="";renderQs();});
+  var amb=document.getElementById("addMedBtn");if(amb)amb.addEventListener("click",addMed);
   var im=document.getElementById("icsMeals");if(im)im.addEventListener("click",function(){downloadFile("amma-meals.ics",buildRecurringICS([{uid:"wake",h:6,m:30,s:"Amma — warm water & soaked nuts"},{uid:"bf",h:8,m:0,s:"Amma — Breakfast"},{uid:"mid",h:11,m:0,s:"Amma — Mid-morning snack"},{uid:"lunch",h:13,m:0,s:"Amma — Lunch"},{uid:"eve",h:16,m:30,s:"Amma — Evening snack"},{uid:"dinner",h:19,m:30,s:"Amma — Dinner"},{uid:"bed",h:21,m:30,s:"Amma — Bedtime cornstarch"}]),"text/calendar");toast("Calendar file downloaded");});
   var imd=document.getElementById("icsMeds");if(imd)imd.addEventListener("click",function(){downloadFile("amma-medicine.ics",buildRecurringICS([{uid:"medam",h:8,m:0,s:"Amma — morning steroid (60 mg)"},{uid:"medpm",h:20,m:0,s:"Amma — night steroid"}]),"text/calendar");toast("Calendar file downloaded");});
 })();
