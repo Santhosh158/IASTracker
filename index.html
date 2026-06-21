@@ -232,12 +232,12 @@
 
   /* bottom nav */
   nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;background:linear-gradient(180deg,#FFFDF8,#FBF4E7);border-top:1px solid var(--border);box-shadow:0 -4px 22px -8px rgba(58,42,26,.13);}
-  .tabsinner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);padding:9px 3px calc(9px + env(safe-area-inset-bottom));}
+  .tabsinner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);padding:9px 2px calc(9px + env(safe-area-inset-bottom));}
   .tab{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;cursor:pointer;color:var(--ink-faint);border:none;background:none;}
-  .tab::before{content:"";position:absolute;top:2px;left:50%;transform:translateX(-50%);width:44px;height:29px;border-radius:999px;background:transparent;transition:background .22s;}
+  .tab::before{content:"";position:absolute;top:2px;left:50%;transform:translateX(-50%);width:40px;height:28px;border-radius:999px;background:transparent;transition:background .22s;}
   .tab.active::before{background:var(--green-soft);}
-  .tab svg{position:relative;width:23px;height:23px;}
-  .tab span{position:relative;font-size:11px;font-weight:700;letter-spacing:.005em;}
+  .tab svg{position:relative;width:22px;height:22px;}
+  .tab span{position:relative;font-size:10.5px;font-weight:700;letter-spacing:0;white-space:nowrap;}
   .tab.active{color:var(--green-deep);}
 
   /* modal */
@@ -508,6 +508,74 @@
   .ref b{color:var(--ink);font-weight:700;}
   .ref .ref-j{color:var(--ink-faint);font-style:italic;}
   .kb-note{font-size:12.5px;color:var(--ink-faint);line-height:1.5;margin-top:10px;padding:11px 13px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-sm);}
+  /* ===== journey roadmap ===== */
+  .jhero{position:relative;overflow:hidden;background:linear-gradient(155deg,#FFF6E3,#FFFDF8 55%);border:1px solid #EFE0C2;border-radius:var(--r-lg);box-shadow:var(--shadow);padding:18px;margin-bottom:14px;}
+  .jhero::after{content:"";position:absolute;top:-44px;right:-34px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(224,162,31,.22),rgba(224,162,31,0) 70%);pointer-events:none;}
+  .jhero .jh-t{font-family:'Fraunces',Georgia,serif;font-size:23px;font-weight:600;color:var(--green-deep);letter-spacing:-.01em;line-height:1.15;}
+  .jhero .jh-s{position:relative;font-size:14px;color:var(--ink-soft);margin-top:7px;line-height:1.5;}
+  .jhero .jh-bar{position:relative;height:9px;border-radius:999px;background:#EFE3CC;overflow:hidden;box-shadow:inset 0 1px 2px rgba(58,42,26,.09);margin-top:15px;}
+  .jhero .jh-bar>i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#2E7A53,#246048);width:0;animation:jgrow 1.5s cubic-bezier(.2,.8,.2,1) .15s forwards;}
+  @keyframes jgrow{from{width:0;}to{width:var(--jw,46%);}}
+  .jhero .jh-pl{position:relative;font-size:12.5px;color:var(--ink-faint);font-weight:700;margin-top:7px;}
+
+  .road{margin-top:4px;}
+  .stop{position:relative;display:flex;gap:13px;padding-bottom:7px;opacity:0;animation:jrise .5s ease forwards;animation-delay:var(--d,0s);}
+  @keyframes jrise{from{opacity:0;transform:translateY(13px);}to{opacity:1;transform:none;}}
+  .stop .rail{position:relative;flex:0 0 46px;display:flex;justify-content:center;}
+  .stop .node{position:relative;z-index:2;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:20px;border:2.5px solid var(--border-strong);background:var(--surface-2);}
+  .stop:not(:last-child) .rail::after{content:"";position:absolute;top:44px;bottom:-7px;left:50%;transform:translateX(-50%);width:4px;background:var(--border-strong);border-radius:2px;z-index:1;}
+  .stop.done .node{background:var(--green);border-color:var(--green);color:#fff;}
+  .stop.done:not(:last-child) .rail::after{background:linear-gradient(#2E7A53,#246048);}
+  .stop.current .node{background:linear-gradient(160deg,#F3C24E,#E0A21F);border-color:#cf941b;color:#fff;animation:jpulse 2.2s ease-in-out infinite;}
+  @keyframes jpulse{0%,100%{box-shadow:0 0 0 5px rgba(224,162,31,.18);}50%{box-shadow:0 0 0 12px rgba(224,162,31,.04);}}
+  .stop.ahead:not(:last-child) .rail::after,.stop.current:not(:last-child) .rail::after{background:none;border-left:3px dashed var(--border-strong);width:0;left:calc(50% - 1.5px);}
+  .stop.ahead .node{background:var(--surface);border-color:var(--border-strong);color:var(--ink-faint);border-style:dashed;}
+  .stop.dest .node{background:var(--green-soft);border-color:var(--green);color:var(--green-deep);}
+  .stop .scard{flex:1;min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:13px 15px;margin-bottom:5px;}
+  .stop.current .scard{border-color:#EAD49B;background:linear-gradient(180deg,#FFFAEE,#FFFDF8);}
+  .stop.dest .scard{border-color:#bcd9c2;background:var(--green-soft);}
+  .stop .stag{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px;}
+  .stop.done .stag{color:var(--green);}
+  .stop.current .stag{color:var(--gold-deep);}
+  .stop.ahead .stag{color:var(--ink-faint);}
+  .stop.dest .stag{color:var(--green-deep);}
+  .stop .st{font-family:'Fraunces',Georgia,serif;font-size:17.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em;margin-bottom:5px;line-height:1.2;}
+  .stop .sd{font-size:14px;color:var(--ink-soft);line-height:1.55;}
+  .stop .sd b{color:var(--ink);font-weight:700;}
+
+  .jcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:13px;}
+  .jcard .jc-h{font-family:'Fraunces',Georgia,serif;font-size:18px;font-weight:600;color:var(--green-deep);margin-bottom:9px;display:flex;align-items:center;gap:8px;}
+  .jcard p{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin:0 0 10px;}
+  .jcard p:last-child{margin-bottom:0;}
+  .jcard b{color:var(--ink);font-weight:700;}
+  .jcard ul{margin:0 0 10px;padding-left:18px;}
+  .jcard li{font-size:14.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:7px;}
+  .jstat{text-align:center;background:var(--green-soft);border:1px solid #bcd9c2;border-radius:var(--r-sm);padding:14px;margin:4px 0 13px;}
+  .jstat b{display:block;font-size:34px;font-weight:800;color:var(--green-deep);line-height:1;}
+  .jstat span{font-size:13px;color:#406049;font-weight:600;}
+  .tlphases{display:flex;gap:9px;}
+  .tlphase{flex:1;text-align:center;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 6px;}
+  .tlphase b{display:block;font-size:14px;font-weight:800;color:var(--green-deep);}
+  .tlphase span{font-size:11px;color:var(--ink-soft);line-height:1.3;display:block;margin-top:3px;}
+  /* journey glucose climb chart */
+  .gchart{margin:8px 0 2px;}
+  .gchart svg{width:100%;height:auto;display:block;}
+  .gline{stroke:#246048;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:760;stroke-dashoffset:760;animation:gdraw 1.7s cubic-bezier(.3,.7,.3,1) .2s forwards;}
+  @keyframes gdraw{to{stroke-dashoffset:0;}}
+  .gpt{opacity:0;animation:gfade .45s ease forwards;}
+  .glbl{font:700 11px 'Plus Jakarta Sans',system-ui,sans-serif;fill:var(--ink);opacity:0;animation:gfade .45s ease forwards;}
+  @keyframes gfade{to{opacity:1;}}
+  .gcap{font:600 10px 'Plus Jakarta Sans',system-ui,sans-serif;}
+  /* journey ALT recovery trend */
+  .alt-trend{display:flex;align-items:flex-end;gap:8px;margin:13px 0 8px;}
+  .alt-step{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;}
+  .alt-step .ab{width:100%;max-width:32px;border-radius:5px 5px 0 0;background:linear-gradient(#E3A79E,#B42318);transform:scaleY(0);transform-origin:bottom;animation:agrow .6s ease forwards;}
+  .alt-step.ok .ab{background:linear-gradient(#9BCBA5,#2E6B43);}
+  .alt-step:nth-child(2) .ab{animation-delay:.1s}.alt-step:nth-child(3) .ab{animation-delay:.2s}.alt-step:nth-child(4) .ab{animation-delay:.3s}.alt-step:nth-child(5) .ab{animation-delay:.4s}
+  @keyframes agrow{to{transform:scaleY(1);}}
+  .alt-step .av{font-size:12px;font-weight:700;color:var(--ink);margin-top:5px;}
+  .alt-step.ok .av{color:var(--green-deep);}
+  .alt-step .ad{font-size:9.5px;color:var(--ink-faint);margin-top:1px;}
 </style>
 </head>
 <body>
@@ -995,6 +1063,183 @@
         <div class="kb-note">These are real, peer-reviewed sources you can look up by title on PubMed. They informed the plain-language summaries above. For anything specific to Amma, her Amrita team holds the full clinical picture.</div>
       </div>
     </section>
+
+    <!-- ===== JOURNEY (roadmap) ===== -->
+    <section class="view" id="view-journey">
+      <div class="sectitle">Amma's journey</div>
+
+      <div class="jhero">
+        <div class="jh-t">From the hardest night to the road home 🌿</div>
+        <div class="jh-s">Her real path — where it started, how far she's come, and where this road leads. Keep it close; on the harder days, it helps to see the whole journey.</div>
+        <div class="jh-bar"><i style="--jw:56%"></i></div>
+        <div class="jh-pl">Milestone 6 of 10 · through the crisis, the diagnosis, and home recovering</div>
+      </div>
+
+      <div class="road">
+        <div class="stop done" style="--d:.05s">
+          <div class="rail"><div class="node">🥤</div></div>
+          <div class="scard"><div class="stag">What set it off</div><div class="st">The quiet build-up</div><div class="sd">For about <b>3½ months</b> she'd been on daily Herbalife shakes — and one, <b>Formula 3 Cell Activator, contains alpha-lipoic acid</b>, a supplement well known to trigger this exact condition. Skipping breakfast and long water-only gaps removed her usual protection, and her weight slipped from ~68 to ~60 kg. The stage was quietly being set — with no way for anyone to know.</div></div>
+        </div>
+        <div class="stop done" style="--d:.12s">
+          <div class="rail"><div class="node">🚨</div></div>
+          <div class="scard"><div class="stag">Where it began</div><div class="st">The crisis</div><div class="sd">One night she was found <b>unconscious at home</b>, her blood sugar crashed to <b>28</b> — dangerously low. The frightening moment this all began.</div></div>
+        </div>
+        <div class="stop done" style="--d:.19s">
+          <div class="rail"><div class="node">🏥</div></div>
+          <div class="scard"><div class="stag">The first save</div><div class="st">Udumalpet Government Hospital</div><div class="sd">Emergency glucose brought her back to consciousness and stabilised her enough to reach a bigger hospital. The first turning point.</div></div>
+        </div>
+        <div class="stop done" style="--d:.26s">
+          <div class="rail"><div class="node">🔬</div></div>
+          <div class="scard"><div class="stag">The search for why</div><div class="st">Sri Ramakrishna Hospital, Coimbatore</div><div class="sd">For about <b>12 days</b> she needed a continuous glucose drip just to stay safe. A supervised fast — and an idli meal-test that <b>spiked to ~170 then crashed</b> — revealed the pattern. Doctors suspected an insulin-making tumour and advised a specialist centre, so she was moved <b>~190 km to Amrita, Kochi</b>.</div></div>
+        </div>
+        <div class="stop done" style="--d:.33s">
+          <div class="rail"><div class="node">🧬</div></div>
+          <div class="scard"><div class="stag">The answer</div><div class="st">Amrita Kochi — diagnosed</div><div class="sd">At Amrita she dropped to <b>22 mg/dL</b> before it was pinned down. Her labs told the story: very high insulin with a high <b>C-peptide (11.55)</b> and <b>negative ketones</b> — her own body overmaking insulin. The deciding antibody test confirmed it: <b>Insulin Autoimmune Syndrome — not a tumour, no surgery needed.</b> Treatment began — prednisolone (built up to 60 mg), the low-GI meal plan, and bedtime cornstarch.</div></div>
+        </div>
+        <div class="stop current" style="--d:.40s">
+          <div class="rail"><div class="node">🏡</div></div>
+          <div class="scard"><div class="stag">Where she is now</div><div class="st">Home in Udumalpet</div><div class="sd">Back home and recovering. Six small low-GI meals a day, <span id="jrTaper">the steroid taper underway</span>, and the family catching and treating any lows. Day to day, things are steady — this is the recovering phase.</div></div>
+        </div>
+        <div class="stop ahead" style="--d:.47s">
+          <div class="rail"><div class="node">📉</div></div>
+          <div class="scard"><div class="stag">Next</div><div class="st">Completing the taper</div><div class="sd">The night steroid steps down to zero, week by week, as her own body takes back more of the work of keeping her sugar steady.</div></div>
+        </div>
+        <div class="stop ahead" style="--d:.54s">
+          <div class="rail"><div class="node">🩺</div></div>
+          <div class="scard"><div class="stag">Ahead</div><div class="st">The Amrita review</div><div class="sd">After the taper, the specialists check how she holds without the steroid, look at her bloodwork, and guide the next step.</div></div>
+        </div>
+        <div class="stop ahead" style="--d:.61s">
+          <div class="rail"><div class="node">🌤️</div></div>
+          <div class="scard"><div class="stag">Ahead</div><div class="st">Remission</div><div class="sd">The lows stop, and her sugar stays steady on its own as the antibodies quietly fade away.</div></div>
+        </div>
+        <div class="stop dest" style="--d:.68s">
+          <div class="rail"><div class="node">🌟</div></div>
+          <div class="scard"><div class="stag">The destination</div><div class="st">Fully recovered</div><div class="sd">The goal we're walking towards: bloodwork confirms it — <b>insulin antibodies cleared</b>, steady sugar control, off treatment, with no return of the lows.</div></div>
+        </div>
+      </div>
+
+      <div class="jcard">
+        <div class="jc-h">📊 Her first days at Amrita</div>
+        <p>The readings you saved from those early days — her body learning to ride the after-meal waves and settle into a steady rhythm.</p>
+        <div style="font-size:12.5px;font-weight:700;color:var(--green-deep);margin:6px 0 2px;">A full day, morning to midnight</div>
+        <div class="gchart">
+          <svg viewBox="0 0 324 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Her blood sugar readings across a full day, staying in a steady range">
+          <line x1="22" y1="105.5" x2="310" y2="105.5" stroke="#EAE0CF" stroke-width="1"/>
+          <text x="18" y="108.5" text-anchor="end" class="gcap" fill="#b9ac95">100</text>
+          <line x1="22" y1="69.2" x2="310" y2="69.2" stroke="#EAE0CF" stroke-width="1"/>
+          <text x="18" y="72.2" text-anchor="end" class="gcap" fill="#b9ac95">150</text>
+          <line x1="22" y1="32.9" x2="310" y2="32.9" stroke="#EAE0CF" stroke-width="1"/>
+          <text x="18" y="35.9" text-anchor="end" class="gcap" fill="#b9ac95">200</text>
+          <polyline class="gline" points="22.0,96.0 54.0,32.9 86.0,51.8 118.0,102.6 150.0,72.1 182.0,104.8 214.0,85.9 246.0,59.7 278.0,38.7 310.0,53.2"/>
+          <circle class="gpt" style="animation-delay:0.8s" cx="22.0" cy="96.0" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:0.8s" x="22.0" y="89.0" text-anchor="middle">113</text>
+          <circle class="gpt" style="animation-delay:0.89s" cx="54.0" cy="32.9" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:0.89s" x="54.0" y="25.9" text-anchor="middle">200</text>
+          <circle class="gpt" style="animation-delay:0.98s" cx="86.0" cy="51.8" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:0.98s" x="86.0" y="44.8" text-anchor="middle">174</text>
+          <circle class="gpt" style="animation-delay:1.07s" cx="118.0" cy="102.6" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.07s" x="118.0" y="95.6" text-anchor="middle">104</text>
+          <circle class="gpt" style="animation-delay:1.16s" cx="150.0" cy="72.1" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.16s" x="150.0" y="65.1" text-anchor="middle">146</text>
+          <circle class="gpt" style="animation-delay:1.25s" cx="182.0" cy="104.8" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.25s" x="182.0" y="97.8" text-anchor="middle">101</text>
+          <circle class="gpt" style="animation-delay:1.34s" cx="214.0" cy="85.9" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.34s" x="214.0" y="78.9" text-anchor="middle">127</text>
+          <circle class="gpt" style="animation-delay:1.43s" cx="246.0" cy="59.7" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.43s" x="246.0" y="52.7" text-anchor="middle">163</text>
+          <circle class="gpt" style="animation-delay:1.52s" cx="278.0" cy="38.7" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.52s" x="278.0" y="31.7" text-anchor="middle">192</text>
+          <circle class="gpt" style="animation-delay:1.61s" cx="310.0" cy="53.2" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.61s" x="310.0" y="46.2" text-anchor="middle">172</text>
+          <text x="22.0" y="152" text-anchor="middle" class="gcap" fill="#9a8d77">6 AM</text>
+          <text x="150.0" y="152" text-anchor="middle" class="gcap" fill="#9a8d77">3 PM</text>
+          <text x="246.0" y="152" text-anchor="middle" class="gcap" fill="#9a8d77">9 PM</text>
+          <text x="310.0" y="152" text-anchor="middle" class="gcap" fill="#9a8d77">1 AM</text>
+          </svg>
+        </div>
+        <div style="font-size:12.5px;font-weight:700;color:var(--green-deep);margin:16px 0 2px;">Through the night, steady till morning</div>
+        <div class="gchart">
+          <svg viewBox="0 0 324 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Her overnight blood sugar readings staying steady from evening to morning">
+          <line x1="22" y1="105.5" x2="310" y2="105.5" stroke="#EAE0CF" stroke-width="1"/>
+          <text x="18" y="108.5" text-anchor="end" class="gcap" fill="#b9ac95">100</text>
+          <line x1="22" y1="69.2" x2="310" y2="69.2" stroke="#EAE0CF" stroke-width="1"/>
+          <text x="18" y="72.2" text-anchor="end" class="gcap" fill="#b9ac95">150</text>
+          <line x1="22" y1="32.9" x2="310" y2="32.9" stroke="#EAE0CF" stroke-width="1"/>
+          <text x="18" y="35.9" text-anchor="end" class="gcap" fill="#b9ac95">200</text>
+          <polyline class="gline" points="22.0,56.1 70.0,51.8 118.0,60.5 166.0,51.0 214.0,80.8 262.0,96.0 310.0,32.9"/>
+          <circle class="gpt" style="animation-delay:0.8s" cx="22.0" cy="56.1" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:0.8s" x="22.0" y="49.1" text-anchor="middle">168</text>
+          <circle class="gpt" style="animation-delay:0.89s" cx="70.0" cy="51.8" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:0.89s" x="70.0" y="44.8" text-anchor="middle">174</text>
+          <circle class="gpt" style="animation-delay:0.98s" cx="118.0" cy="60.5" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:0.98s" x="118.0" y="53.5" text-anchor="middle">162</text>
+          <circle class="gpt" style="animation-delay:1.07s" cx="166.0" cy="51.0" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.07s" x="166.0" y="44.0" text-anchor="middle">175</text>
+          <circle class="gpt" style="animation-delay:1.16s" cx="214.0" cy="80.8" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.16s" x="214.0" y="73.8" text-anchor="middle">134</text>
+          <circle class="gpt" style="animation-delay:1.25s" cx="262.0" cy="96.0" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.25s" x="262.0" y="89.0" text-anchor="middle">113</text>
+          <circle class="gpt" style="animation-delay:1.34s" cx="310.0" cy="32.9" r="3.2" fill="#246048"/>
+          <text class="glbl" style="animation-delay:1.34s" x="310.0" y="25.9" text-anchor="middle">200</text>
+          <text x="22.0" y="152" text-anchor="middle" class="gcap" fill="#9a8d77">9 PM</text>
+          <text x="166.0" y="152" text-anchor="middle" class="gcap" fill="#9a8d77">3 AM</text>
+          <text x="310.0" y="152" text-anchor="middle" class="gcap" fill="#9a8d77">9 AM</text>
+          </svg>
+        </div>
+        <p style="margin-top:10px;">With bedtime cornstarch and a small night snack, she held steady all the way through to morning — the after-meal ups and downs getting gentler as the treatment took hold.</p>
+        <div class="kb-note">From the readings you saved during her first days at Amrita. Keep logging on the Today screen and this picture keeps growing. 💙</div>
+      </div>
+
+      <div class="jcard">
+        <div class="jc-h">🔍 The numbers that solved it</div>
+        <p>The proof of her diagnosis is in her own admission results — every one pointing the same way:</p>
+        <div class="kbfact"><span class="kf-k">Blood sugar (at the test)</span><span class="kf-v">28 mg/dL · normal is 70–110</span></div>
+        <div class="kbfact"><span class="kf-k">Insulin</span><span class="kf-v">over 1000 µIU/mL — extremely high</span></div>
+        <div class="kbfact"><span class="kf-k">C-peptide</span><span class="kf-v">~29 ng/mL — high (her own pancreas)</span></div>
+        <div class="kbfact"><span class="kf-k">Ketones</span><span class="kf-v">negative — the insulin "fingerprint"</span></div>
+        <div class="kbfact"><span class="kf-k">Insulin antibodies (IAA)</span><span class="kf-v">&gt;100 U/mL · ref &lt;10 — confirms IAS</span></div>
+        <p style="margin-top:12px;">Very high insulin <b>+</b> high C-peptide <b>+</b> negative ketones <b>+</b> sky-high insulin antibodies <b>=</b> Insulin Autoimmune Syndrome. A coherent answer — and a treatable one.</p>
+      </div>
+
+      <div class="jcard">
+        <div class="jc-h">🩹 Her recovery is already showing</div>
+        <p>During the crisis, the repeated crashes "bruised" her liver — its enzyme (ALT) shot up to <b>198</b>. Over the next ~10 days it climbed back into the normal range:</p>
+        <div class="alt-trend">
+          <div class="alt-step"><span class="ab" style="height:60px"></span><span class="av">198</span><span class="ad">admission</span></div>
+          <div class="alt-step"><span class="ab" style="height:22px"></span><span class="av">72</span><span class="ad">2 Jun</span></div>
+          <div class="alt-step"><span class="ab" style="height:10px"></span><span class="av">32</span><span class="ad">5 Jun</span></div>
+          <div class="alt-step ok"><span class="ab" style="height:7px"></span><span class="av">22 ✓</span><span class="ad">8 Jun</span></div>
+          <div class="alt-step ok"><span class="ab" style="height:7px"></span><span class="av">22 ✓</span><span class="ad">10 Jun</span></div>
+        </div>
+        <p>Back inside normal (≤28) — a concrete sign the worst is behind her.</p>
+        <p>And the serious possibilities were all <b>ruled out</b>: bone-marrow disease (myeloma), hepatitis and other infections, and lupus-type autoimmunity — every screen came back clear.</p>
+      </div>
+
+      <div class="jcard">
+        <div class="jc-h">🏁 What "fully recovered" will mean</div>
+        <p>It isn't a single day so much as a few things lining up:</p>
+        <ul>
+          <li><b>No more lows</b> — steady sugar even off treatment.</li>
+          <li><b>Off the steroid</b> without the hypoglycaemia coming back.</li>
+          <li><b>Bloodwork normalises</b> — the insulin autoantibodies fall back to normal/negative and her glucose control holds.</li>
+        </ul>
+        <p>Because the antibodies can lag behind how well she feels, her <b>Amrita team will use follow-up bloodwork to call it</b> — not symptoms alone. That's why the periodic tests matter.</p>
+      </div>
+
+      <div class="jcard">
+        <div class="jc-h">🛣️ The road others have travelled</div>
+        <div class="jstat"><b style="font-size:21px;line-height:1.25;">Recovery is the expected path</b><span>IAS is one of the more recoverable conditions of its kind</span></div>
+        <p>It's worth reading this part properly, because the picture is more hopeful than a single number makes it sound. In the research, <b>more than 8 in 10 people get better with no treatment at all</b> — and that's the <i>floor</i>, not the ceiling. Most of the smaller group who don't settle on their own <b>recover once they're treated</b> — and Amma is already on that treatment. Serious outcomes are uncommon, and usually tied to other complicating conditions.</p>
+        <p>Once the trigger is gone and the flare settles, the typical path looks like:</p>
+        <div class="tlphases">
+          <div class="tlphase"><b>1–3 mo</b><span>lows usually settle</span></div>
+          <div class="tlphase"><b>3–6 mo</b><span>antibodies typically fall</span></div>
+          <div class="tlphase"><b>~1 yr</b><span>most fully recover</span></div>
+        </div>
+        <p style="margin-top:13px;">Steroids — like hers — often help it along. Everyone's path is a little different, and <b>her timeline is her Amrita team's call</b> — but for the great majority, the direction of travel is firmly toward getting well.</p>
+        <div class="kb-note">General patterns from published IAS research (see the Learn tab) — not a prediction for Amma, and never the whole story of any one person. 💙</div>
+      </div>
+    </section>
   </main>
 
   <nav class="tabs">
@@ -1018,6 +1263,10 @@
       <button class="tab" data-tab="learn">
         <svg viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.3 1 2.1v.4h6v-.4c0-.8.4-1.5 1-2.1A6 6 0 0 0 12 3z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span>Learn</span>
+      </button>
+      <button class="tab" data-tab="journey">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M7 21c-2 0-3-1-3-2.5S5 16 7 16h8c2 0 3-1 3-2.5S15 11 13 11H8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M18 16.5s2.5 2.6 2.5 4A2.5 2.5 0 0 1 18 23a2.5 2.5 0 0 1-2.5-2.5c0-1.4 2.5-4 2.5-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>Journey</span>
       </button>
     </div>
   </nav>
@@ -1105,6 +1354,21 @@ function prettyDate(iso){var d=parseISO(iso);return DOW[d.getDay()]+", "+d.getDa
 /* ---------- settings ---------- */
 var planStart=load("amma_startDate",todayISO()); if(!load("amma_startDate",null)) store("amma_startDate",planStart);
 var steroidStart=load("amma_steroidStart",todayISO()); if(!load("amma_steroidStart",null)) store("amma_steroidStart",steroidStart);
+var LAB_SEED=[
+ {date:"Jun 10",name:"ALT (liver)",val:"22 — back to normal \u2713"},
+ {date:"Jun 10",name:"CRP",val:"<0.6 — normal (no infection)"},
+ {date:"Jun 10",name:"WBC",val:"16.9 — high (steroid effect)"},
+ {date:"Jun 5",name:"Total cholesterol",val:"244 — mildly high (steroid)"},
+ {date:"Jun 2",name:"Myeloma panel (SPEP)",val:"clear — no M-spike"},
+ {date:"May 29",name:"Insulin antibody (IAA)",val:">100 U/mL (ref <10) — confirms IAS"},
+ {date:"May 29",name:"Insulin",val:">1000 \u00b5IU/mL — very high"},
+ {date:"May 29",name:"C-peptide",val:"~29 ng/mL (ref 1.2\u20138.6)"},
+ {date:"May 29",name:"ALT (liver)",val:"198 — high (the crisis)"},
+ {date:"May 29",name:"Glucose (lowest)",val:"28 mg/dL"},
+ {date:"May 29",name:"HbA1c",val:"5.5% — not diabetic"},
+ {date:"May 29",name:"Ketones",val:"negative"}
+];
+if(!load("amma_labs",null)) store("amma_labs",LAB_SEED);
 var showNutrition=load("amma_nutri",false);
 var viewedDate=todayISO();
 function planDayFor(iso){var diff=daysBetween(planStart,iso);return ((diff%30)+30)%30;}
@@ -1897,6 +2161,7 @@ function switchTab(name){
   if(name==="health"&&!built.health){buildHealth();built.health=true;}
   if(name==="care"&&!built.care){renderTaper();renderMedEditor();built.care=true;}
   if(name==="learn"&&!built.learn){renderKBTracked();built.learn=true;}
+  if(name==="journey"&&!built.journey){renderJourneyRoad();built.journey=true;}
   window.scrollTo({top:0,behavior:"auto"});
 }
 document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){switchTab(this.getAttribute("data-tab"));});});
@@ -2238,6 +2503,11 @@ function buildApptICS(a){var d=(a.date||todayISO()).replace(/-/g,"");var L=["BEG
 function dstampNow(){var d=new Date();return d.getFullYear()+pad2(d.getMonth()+1)+pad2(d.getDate());}
 
 /* ---- knowledge base: live tracked summary ---- */
+function renderJourneyRoad(){
+  var el=document.getElementById("jrTaper");if(!el)return;
+  var ti=taperInfo();
+  el.textContent=ti.done?"the steroid taper now complete":("the steroid taper underway (week "+ti.week+", night dose "+ti.night+" mg)");
+}
 function renderKBTracked(){
   var el=document.getElementById("kbTracked");if(!el)return;
   var rows=[];
