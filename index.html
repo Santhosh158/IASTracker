@@ -232,12 +232,12 @@
 
   /* bottom nav */
   nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;background:linear-gradient(180deg,#FFFDF8,#FBF4E7);border-top:1px solid var(--border);box-shadow:0 -4px 22px -8px rgba(58,42,26,.13);}
-  .tabsinner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);padding:9px 6px calc(9px + env(safe-area-inset-bottom));}
-  .tab{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0;cursor:pointer;color:var(--ink-faint);border:none;background:none;}
-  .tab::before{content:"";position:absolute;top:2px;left:50%;transform:translateX(-50%);width:50px;height:30px;border-radius:999px;background:transparent;transition:background .22s;}
+  .tabsinner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);padding:9px 3px calc(9px + env(safe-area-inset-bottom));}
+  .tab{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;cursor:pointer;color:var(--ink-faint);border:none;background:none;}
+  .tab::before{content:"";position:absolute;top:2px;left:50%;transform:translateX(-50%);width:44px;height:29px;border-radius:999px;background:transparent;transition:background .22s;}
   .tab.active::before{background:var(--green-soft);}
-  .tab svg{position:relative;width:25px;height:25px;}
-  .tab span{position:relative;font-size:11.5px;font-weight:700;letter-spacing:.01em;}
+  .tab svg{position:relative;width:23px;height:23px;}
+  .tab span{position:relative;font-size:11px;font-weight:700;letter-spacing:.005em;}
   .tab.active{color:var(--green-deep);}
 
   /* modal */
@@ -481,6 +481,33 @@
   body.bigtext .mfood{font-size:18px;} body.bigtext .greet{font-size:23px;} body.bigtext .mhead .mta{font-size:18px;}
   body.hicontrast{--ink:#000;--ink-soft:#222;--ink-faint:#444;--border:#bbb;--border-strong:#888;--paper:#fff;--surface:#fff;--surface-2:#fff;}
   body.hicontrast .meal,body.hicontrast .todaycard,body.hicontrast .hcard,body.hicontrast .card{box-shadow:0 0 0 1px #999;}
+  /* ===== knowledge base (Learn) ===== */
+  .learn-intro{font-size:14px;color:var(--ink-soft);line-height:1.55;margin:2px 0 4px;background:var(--gold-soft);border:1px solid #ecdcb6;border-radius:var(--r-sm);padding:13px 15px;}
+  .kb-h{font-family:'Fraunces',Georgia,serif;font-size:19px;font-weight:600;color:var(--green-deep);margin:24px 2px 11px;letter-spacing:-.01em;}
+  .kbcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:15px 16px;margin-bottom:10px;}
+  .kbfact{display:flex;gap:12px;padding:9px 0;border-top:1px solid var(--border);font-size:14.5px;line-height:1.45;}
+  .kbfact:first-child{border-top:none;}
+  .kbfact .kf-k{flex:0 0 40%;color:var(--ink-faint);font-weight:600;}
+  .kbfact .kf-v{flex:1;color:var(--ink);font-weight:600;}
+  .kbacc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:9px;box-shadow:var(--shadow);overflow:hidden;}
+  .kbacc>summary{list-style:none;cursor:pointer;padding:14px 15px;font-weight:700;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:10px;}
+  .kbacc>summary::-webkit-details-marker{display:none;}
+  .kbacc>summary .acc-ic{font-size:18px;}
+  .kbacc>summary::after{content:"+";margin-left:auto;font-size:22px;line-height:1;color:var(--ink-faint);font-weight:300;}
+  .kbacc[open]>summary::after{content:"\2013";}
+  .kbacc[open]>summary{border-bottom:1px solid var(--border);}
+  .kb-body{padding:14px 15px;font-size:14.5px;line-height:1.62;color:var(--ink-soft);}
+  .kb-body p{margin:0 0 11px;}
+  .kb-body p:last-child{margin-bottom:0;}
+  .kb-body b{color:var(--ink);font-weight:700;}
+  .kb-body ul{margin:0 0 11px;padding-left:18px;}
+  .kb-body li{margin-bottom:6px;}
+  .kb-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--gold-deep);background:var(--gold-soft);border:1px solid #ecdcb6;border-radius:999px;padding:2px 9px;margin:0 0 10px;}
+  .ref{font-size:13px;line-height:1.5;color:var(--ink-soft);padding:11px 0;border-top:1px solid var(--border);}
+  .ref:first-child{border-top:none;}
+  .ref b{color:var(--ink);font-weight:700;}
+  .ref .ref-j{color:var(--ink-faint);font-style:italic;}
+  .kb-note{font-size:12.5px;color:var(--ink-faint);line-height:1.5;margin-top:10px;padding:11px 13px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-sm);}
 </style>
 </head>
 <body>
@@ -684,7 +711,7 @@
 
       <div class="hcard">
         <div class="hh">📅 Appointments &amp; tests</div>
-        <div class="hsub2">The Amrita review, the Coimbatore follow-up, pending tests.</div>
+        <div class="hsub2">The Amrita review, the local Udumalpet clinic, pending tests.</div>
         <div class="miniform">
           <input type="text" id="apptTitle" placeholder="What" />
           <input type="date" id="apptDate" class="sm" />
@@ -824,6 +851,150 @@
 
       <p class="disc">Amma's Care is a helper, not a substitute for her doctor or dietician. Review the plan, the cornstarch dose, and any supplement with her treating team, and adjust based on her readings and how she feels. 💙</p>
     </section>
+
+    <!-- ===== LEARN (knowledge base) ===== -->
+    <section class="view" id="view-learn">
+      <div class="sectitle">Knowledge base</div>
+      <p class="learn-intro">Everything we've gathered about Amma's condition and her care, in one place for the family — written in plain language from published medical research and from what we've tracked together. It's a helper, not a replacement for her Amrita team; share anything new with them.</p>
+
+      <div class="kb-h">📋 Amma's case</div>
+      <div class="kbcard">
+        <div class="kbfact"><span class="kf-k">Condition</span><span class="kf-v">Insulin Autoimmune Syndrome (Hirata disease)</span></div>
+        <div class="kbfact"><span class="kf-k">Confirmed at</span><span class="kf-v">Amrita Hospital, Kochi</span></div>
+        <div class="kbfact"><span class="kf-k">Main risk</span><span class="kf-v">Sudden low blood sugar — a few hours after meals and overnight</span></div>
+        <div class="kbfact"><span class="kf-k">The approach</span><span class="kf-v">6 small low-GI meals · protein every meal · bedtime cornstarch · steroid taper · avoiding trigger drugs</span></div>
+        <div class="kbfact"><span class="kf-k">Follow-up</span><span class="kf-v">Amrita Kochi — main review after the taper · a nearby clinic in Udumalpet kept on hand for quick or emergency help</span></div>
+      </div>
+
+      <details class="kbacc"><summary><span class="acc-ic">💊</span> Her treatment plan</summary>
+        <div class="kb-body">
+          <p><b>Steroid taper.</b> 60 mg every morning, plus a night dose that starts at 50 mg and drops 10 mg each week (50 → 40 → 30 → 20 → 10 → 0). After it reaches zero, she is reviewed at Amrita, Kochi. The steroid calms the immune flare and reduces both the lows and the antibody levels.</p>
+          <p><b>Six small meals a day</b> at roughly steady times, each pairing protein with a slow carbohydrate and plenty of vegetables — never a big plate of fast carbs on its own.</p>
+          <p><b>Bedtime cornstarch.</b> 1–2 level tablespoons of plain cornstarch stirred raw into a glass of water or milk, with no sugar, just before sleep — it releases glucose slowly through the night to prevent the overnight drop.</p>
+        </div>
+      </details>
+
+      <details class="kbacc"><summary><span class="acc-ic">🧫</span> Her medicines</summary>
+        <div class="kb-body">
+          <ul>
+            <li><b>Steroid</b> — the morning + tapering night dose above.</li>
+            <li><b>Shelcal 500</b> — calcium + vitamin D, to protect her bones while she's on steroids.</li>
+            <li><b>BP medicine</b> — for blood pressure.</li>
+            <li><b>Gastric medicine</b> — a stomach protector, commonly given alongside steroids.</li>
+            <li><b>Probiotic</b> — for gut health.</li>
+          </ul>
+          <p>The full daily list is tracked on the Today screen and editable in Care → "Her medicines."</p>
+          <p class="kb-tag">Important</p>
+          <p>Make sure her <b>BP medicine is not captopril or hydralazine</b> — both can worsen IAS. The usual ones (amlodipine, telmisartan, losartan, enalapril, cilnidipine and similar) are fine.</p>
+        </div>
+      </details>
+
+      <details class="kbacc"><summary><span class="acc-ic">⚠️</span> Her danger pattern &amp; what we've seen</summary>
+        <div class="kb-body">
+          <p>Her lows are mostly <b>reactive</b> — they come a few hours <i>after</i> a meal (especially a carb-heavy one) and <b>overnight</b>, rather than from fasting alone.</p>
+          <p><b>Warning signs:</b> shakiness, sweating, hunger, dizziness, irritability, confusion, or unusual drowsiness. Treat at the first sign.</p>
+          <p><b>If a low happens:</b> give ~15 g of fast sugar (½ cup juice, or 3–4 tsp sugar/Glucose-D in water), rest, recheck in 15 minutes, repeat if still under 70, then follow with a protein + slow-carb snack so it holds. Get medical help if she's confused, can't swallow, or it won't come up.</p>
+          <p>We've already navigated one such episode — a reading of <b>65 while she was getting ready to travel</b> — handled with fast sugar followed by a protein snack before setting off.</p>
+        </div>
+      </details>
+
+      <details class="kbacc"><summary><span class="acc-ic">🍽️</span> Her food approach</summary>
+        <div class="kb-body">
+          <p>The whole diet is built to <b>flatten the after-meal sugar spike</b>, because it's that spike-then-crash that drives her lows.</p>
+          <ul>
+            <li>Protein with every meal (egg, dal, kollu, fish, paneer, curd).</li>
+            <li>Slow carbs — millets, a little rice, whole wheat — never fast sugar on its own.</li>
+            <li>Plenty of greens and vegetables for fibre.</li>
+            <li>Small amounts, often; never long gaps without food.</li>
+            <li>Bedtime cornstarch for the overnight stretch.</li>
+          </ul>
+          <p>Foods like <b>amla, jamun and bitter gourd</b> gently support her sugar and are good <i>as food, in small amounts, with a meal</i> — but never as concentrated juices, powders or extracts, which can lower sugar too strongly.</p>
+        </div>
+      </details>
+
+      <div class="kb-h">📈 What we've tracked</div>
+      <div class="kbcard" id="kbTracked"></div>
+
+      <div class="kb-h">🔬 About IAS (the science)</div>
+
+      <details class="kbacc"><summary><span class="acc-ic">📖</span> What it is</summary>
+        <div class="kb-body">
+          <p>Insulin Autoimmune Syndrome (IAS), or <b>Hirata disease</b>, is a rare autoimmune cause of low blood sugar, first described by Dr Yukimasa Hirata in Japan in <b>1970</b>. The body makes antibodies against its own insulin.</p>
+          <p>Doctors define it by four things: low blood sugar with <b>high insulin levels</b>, <b>high insulin-autoantibody titres</b>, <b>no history of insulin injections</b>, and a <b>normal pancreas</b> (no tumour). It tends to appear after age 40.</p>
+        </div>
+      </details>
+
+      <details class="kbacc"><summary><span class="acc-ic">🎢</span> Why her sugar drops (the roller-coaster)</summary>
+        <div class="kb-body">
+          <p>After a meal, the antibodies grab onto her insulin so it can't act normally straight away — sugar may even rise a little, which prompts the body to make <b>still more insulin</b>.</p>
+          <p>A few hours later, the antibodies <b>let go of all that stored insulin at once</b>, regardless of what the sugar is doing — causing a delayed crash, typically some hours after eating and overnight. The lingering insulin also blunts the body's normal recovery, so the low lasts longer.</p>
+          <p>This is exactly why her plan works: small low-GI meals avoid the big spike that starts the cycle, and bedtime cornstarch keeps glucose trickling in overnight.</p>
+        </div>
+      </details>
+
+      <details class="kbacc"><summary><span class="acc-ic">🧬</span> Who gets it &amp; why</summary>
+        <div class="kb-body">
+          <p>There's a strong genetic link to a tissue type called <b>HLA-DRB1*04:06</b>, which is common in Japanese and Korean populations — so IAS is far more frequently reported in <b>East Asia</b>. In Western countries it's rarer and tends to be linked to a related type (DRB1*04:03).</p>
+          <p>It often appears alongside <b>other autoimmune conditions</b> (such as Graves' disease or rheumatoid arthritis), or is set off by a <b>viral infection</b> or a triggering medication acting on that genetic background.</p>
+        </div>
+      </details>
+
+      <details class="kbacc"><summary><span class="acc-ic">💊</span> Drugs &amp; supplements that can trigger it</summary>
+        <div class="kb-body">
+          <p>More than half of cases follow a drug containing a <b>sulfhydryl (thiol) group</b>. These can "unzip" the insulin molecule and expose it to the immune system, prompting the antibodies — especially in genetically susceptible people.</p>
+          <p>Well-documented triggers include <b>methimazole / carbimazole</b> (thyroid drugs), <b>alpha-lipoic acid</b> (thioctic acid — a common over-the-counter supplement), <b>penicillamine</b>, <b>captopril</b> and <b>clopidogrel</b>. More recent reports add <b>proton-pump inhibitors</b> and some diabetes medicines.</p>
+          <p>This is the reason her avoid-list below matters so much.</p>
+        </div>
+      </details>
+
+      <details class="kbacc"><summary><span class="acc-ic">🔍</span> How it's diagnosed</summary>
+        <div class="kb-body">
+          <p>Blood taken during or after a low shows <b>high insulin together with high C-peptide</b>, and — the key finding — <b>high insulin-autoantibody titres</b>, in someone who has never injected insulin.</p>
+          <p>Doctors rule out an <b>insulinoma</b> (a tumour) with imaging and check that no sulfonylurea diabetes drug is involved. Specialised lab steps (PEG precipitation and gel chromatography) confirm that the insulin is bound to antibodies. A tell-tale clue is insulin being <b>disproportionately high compared with C-peptide</b>.</p>
+        </div>
+      </details>
+
+      <details class="kbacc"><summary><span class="acc-ic">🩺</span> How it's treated</summary>
+        <div class="kb-body">
+          <p>Most cases are <b>self-limiting</b> and settle on their own. The first line is <b>diet</b> — small, frequent, low-GI meals, avoiding simple sugars, with plenty of fibre — to blunt the after-meal spike. Any trigger drug is stopped. <b>Raw cornstarch</b> helps prevent lows, especially overnight, and <b>acarbose</b> (which slows carbohydrate absorption) can help.</p>
+          <p>More severe cases use <b>corticosteroids</b> (which reduce both the hypoglycaemia and the antibody levels), sometimes <b>diazoxide</b> or <b>somatostatin analogues</b> to lower insulin release, and rarely immunosuppressants (azathioprine, rituximab) or plasma exchange. Amma's plan — diet + cornstarch + a steroid taper — follows this approach.</p>
+        </div>
+      </details>
+
+      <details class="kbacc"><summary><span class="acc-ic">🌅</span> The outlook</summary>
+        <div class="kb-body">
+          <p>Generally <b>good</b>. Many people improve within months once triggers are removed and the immune flare settles — though the antibodies themselves can take longer (sometimes a couple of years) to fully disappear. Day-to-day care is about <b>preventing lows while her body recovers</b>, which is exactly what this app is for.</p>
+        </div>
+      </details>
+
+      <div class="kb-h">🚫 Must-avoid for her</div>
+      <div class="kbcard">
+        <div class="kb-body" style="padding:0;">
+          <p>Drugs and supplements in the <b>sulfhydryl / antioxidant</b> group that can trigger or worsen IAS:</p>
+          <ul>
+            <li>Alpha-lipoic acid (thioctic acid)</li>
+            <li>NAC, cysteine, methionine, glutathione supplements</li>
+            <li>Methimazole / carbimazole</li>
+            <li>Captopril · hydralazine</li>
+            <li>Clopidogrel · penicillamine</li>
+          </ul>
+          <p>Also avoid <b>concentrated sugar-lowering remedies</b> that can stack onto her low risk: bitter-gourd (karela) juice, jamun-seed powder, amla extract capsules, large fenugreek doses.</p>
+          <p><b>Always tell any new doctor she has IAS</b> before she starts a new medicine.</p>
+        </div>
+      </div>
+
+      <div class="kb-h">📚 Studies &amp; references</div>
+      <div class="kbcard">
+        <div class="ref"><b>Hirata Y, et al. (1970).</b> First description of insulin autoimmune syndrome, Japan — the original report the condition is named after.</div>
+        <div class="ref"><b>Cappellani D, Macchia E, Falorni A, Marchetti P.</b> Insulin Autoimmune Syndrome (Hirata Disease): A Comprehensive Review Fifty Years After Its First Description. <span class="ref-j">Diabetes, Metabolic Syndrome and Obesity, 2020.</span></div>
+        <div class="ref"><b>Censi S, et al.</b> Insulin autoimmune syndrome: from diagnosis to clinical management. <span class="ref-j">Annals of Translational Medicine, 2018.</span></div>
+        <div class="ref"><b>Lin M, et al.</b> Insulin Autoimmune Syndrome: A Systematic Review. <span class="ref-j">International Journal of Endocrinology, 2023.</span></div>
+        <div class="ref"><b>Uchigata Y, Hirata Y.</b> Insulin autoimmune syndrome (Hirata disease) — work establishing the HLA-DRB1*04:06 genetic association.</div>
+        <div class="ref"><b>Drug-induced insulin autoimmune syndrome:</b> a clinico-epidemiological analysis integrating pharmacovigilance data and case series. <span class="ref-j">Diabetology &amp; Metabolic Syndrome, 2025.</span></div>
+        <div class="ref"><b>Kitsios K, Tsotoulidis S, Triantafyllou A, et al.</b> Insulin Autoimmune Syndrome (Hirata Disease) After Treatment With Alpha-Lipoic Acid: A Case Report. <span class="ref-j">AIM Clinical Cases, 2024.</span></div>
+        <div class="kb-note">These are real, peer-reviewed sources you can look up by title on PubMed. They informed the plain-language summaries above. For anything specific to Amma, her Amrita team holds the full clinical picture.</div>
+      </div>
+    </section>
   </main>
 
   <nav class="tabs">
@@ -843,6 +1014,10 @@
       <button class="tab" data-tab="care">
         <svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" stroke="currentColor" stroke-width="1.8"/></svg>
         <span>Care</span>
+      </button>
+      <button class="tab" data-tab="learn">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.3 1 2.1v.4h6v-.4c0-.8.4-1.5 1-2.1A6 6 0 0 0 12 3z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Learn</span>
       </button>
     </div>
   </nav>
@@ -899,7 +1074,7 @@
       <div class="emerg-block">
         <div class="eb-h">📞 Contacts <span style="font-size:12px;font-weight:600;color:var(--ink-faint);">— fill once, then tap to call</span></div>
         <div class="contact"><span class="cl">Hospital</span><div class="cinputs"><input class="nm" id="c_hospN" placeholder="Hospital name" /><input id="c_hospP" inputmode="tel" placeholder="Phone" /><a class="callbtn off" id="c_hospC">📞</a></div></div>
-        <div class="contact"><span class="cl">Doctor</span><div class="cinputs"><input class="nm" id="c_docN" placeholder="Doctor name" /><input id="c_docP" inputmode="tel" placeholder="Phone" /><a class="callbtn off" id="c_docC">📞</a></div></div>
+        <div class="contact"><span class="cl">Local clinic</span><div class="cinputs"><input class="nm" id="c_docN" placeholder="Clinic in Udumalpet" /><input id="c_docP" inputmode="tel" placeholder="Phone" /><a class="callbtn off" id="c_docC">📞</a></div></div>
         <div class="contact"><span class="cl">Family 1</span><div class="cinputs"><input class="nm" id="c_f1N" placeholder="Name" /><input id="c_f1P" inputmode="tel" placeholder="Phone" /><a class="callbtn off" id="c_f1C">📞</a></div></div>
         <div class="contact"><span class="cl">Family 2</span><div class="cinputs"><input class="nm" id="c_f2N" placeholder="Name" /><input id="c_f2P" inputmode="tel" placeholder="Phone" /><a class="callbtn off" id="c_f2C">📞</a></div></div>
         <div class="contact"><span class="cl">Blood group &amp; notes</span><div class="cinputs"><input id="c_blood" placeholder="Blood group" /><input id="c_notes" placeholder="Other allergies / notes" /></div></div>
@@ -1093,7 +1268,7 @@ var FOODS=[
  {en:"Bitter gourd",ta:"பாகற்காய்",cat:"veg",star:0,
   nut:"Very low GI (~24); contains charantin.",
   tags:[T("Blood sugar","bs")],
-  note:"Strongly lowers blood glucose. Good about once a week.",
+  note:"Strongly lowers blood glucose, so eat it only as a vegetable with a meal, about once a week — never as karela juice or a sugar-lowering remedy.",
   use:"Pavakkai masala or poriyal."},
  {en:"Gourds (snake, ridge, bottle, ash)",ta:"புடலை · பீர்க்கு · சுரை · பூசணி",cat:"veg",star:0,
   nut:"Low GI; watery and high in fibre.",
@@ -1167,12 +1342,12 @@ var FOODS=[
  {en:"Amla / Indian gooseberry",ta:"நெல்லிக்காய்",cat:"fruit",star:1,
   nut:"Very high vitamin C and polyphenols. 2 g/day extract lowered fasting sugar ~22% in a study.",
   tags:[T("Blood sugar","bs"),T("Cholesterol","ch"),T("Vitamin C")],
-  note:"Strong anti-diabetic and cholesterol-lowering fruit.",
+  note:"A low-GI fruit that gently supports blood sugar and cholesterol — fine as a small fresh piece with a meal. Avoid concentrated amla extract or capsules as a sugar-lowering remedy, especially on an empty stomach.",
   use:"Fresh, or unsweetened juice (no sugar/syrup)."},
  {en:"Jamun / Black plum",ta:"நாவல் பழம்",cat:"fruit",star:1,
   nut:"Classic anti-diabetic fruit; in season June–August.",
   tags:[T("Blood sugar","bs"),T("Joints","jo")],
-  note:"Well known for lowering blood sugar; also anti-inflammatory. In season now — make the most of it.",
+  note:"A low-GI, anti-inflammatory fruit, in season now — fine as a small fresh portion with a meal. Not jamun-seed powder or extracts as a sugar-lowering remedy.",
   use:"Eat fresh, small portion."},
  {en:"Guava",ta:"கொய்யா",cat:"fruit",star:0,
   nut:"Low GI (<55); high fibre and vitamin C.",
@@ -1721,6 +1896,7 @@ function switchTab(name){
   if(name==="meals"&&!built.meals){renderBuilderChips();renderChips();renderFoods();renderShop();renderSaved();built.meals=true;}
   if(name==="health"&&!built.health){buildHealth();built.health=true;}
   if(name==="care"&&!built.care){renderTaper();renderMedEditor();built.care=true;}
+  if(name==="learn"&&!built.learn){renderKBTracked();built.learn=true;}
   window.scrollTo({top:0,behavior:"auto"});
 }
 document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){switchTab(this.getAttribute("data-tab"));});});
@@ -1800,7 +1976,7 @@ function renderFeel(){
 }
 
 /* ---------- emergency card ---------- */
-var EMERG_DEFAULTS={hospN:"Amrita Hospital, Kochi",hospP:"",docN:"Dr. R. Srinivasan — Surya Diabetes Clinic, Coimbatore",docP:"",f1N:"Santhosh (son)",f1P:"",f2N:"",f2P:"",blood:"",notes:""};
+var EMERG_DEFAULTS={hospN:"Amrita Hospital, Kochi",hospP:"",docN:"Local clinic (Udumalpet)",docP:"",f1N:"Santhosh (son)",f1P:"",f2N:"",f2P:"",blood:"",notes:""};
 function loadEmerg(){var e=load("amma_emerg",null);if(!e){e=Object.assign({},EMERG_DEFAULTS);store("amma_emerg",e);}return e;}
 var emerg=loadEmerg();
 function bindContact(idN,idP,idC,keyN,keyP){
@@ -2060,6 +2236,35 @@ function buildHealth(){renderSugar();renderHypo();renderWater();renderLab();rend
 function buildRecurringICS(events){var s=dstampNow();var L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Amma Care//EN","CALSCALE:GREGORIAN"];events.forEach(function(e){var dt=s+"T"+pad2(e.h)+pad2(e.m)+"00";L.push("BEGIN:VEVENT","UID:"+e.uid+"-"+s+"@ammacare","DTSTAMP:"+dt,"DTSTART:"+dt,"RRULE:FREQ=DAILY","SUMMARY:"+e.s,"BEGIN:VALARM","TRIGGER:PT0M","ACTION:DISPLAY","DESCRIPTION:"+e.s,"END:VALARM","END:VEVENT");});L.push("END:VCALENDAR");return L.join("\r\n");}
 function buildApptICS(a){var d=(a.date||todayISO()).replace(/-/g,"");var L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Amma Care//EN","BEGIN:VEVENT","UID:appt-"+d+"-"+Math.random().toString(36).slice(2)+"@ammacare","DTSTAMP:"+d+"T090000","DTSTART;VALUE=DATE:"+d,"SUMMARY:Amma — "+a.title,"DESCRIPTION:"+(a.note||""),"BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:Amma appointment tomorrow","END:VALARM","END:VEVENT","END:VCALENDAR"];return L.join("\r\n");}
 function dstampNow(){var d=new Date();return d.getFullYear()+pad2(d.getMonth()+1)+pad2(d.getDate());}
+
+/* ---- knowledge base: live tracked summary ---- */
+function renderKBTracked(){
+  var el=document.getElementById("kbTracked");if(!el)return;
+  var rows=[];
+  var d=daysBetween(planStart,todayISO());if(d<0)d=0;d=d+1;
+  rows.push(["On the plan for",d+" day"+(d===1?"":"s")]);
+  var ti=taperInfo();
+  rows.push(["Steroid taper",ti.done?"completed — night dose at 0":("week "+ti.week+" · night dose "+ti.night+" mg")]);
+  var arr=allReadings();
+  if(arr.length){
+    var vals=arr.map(function(r){return r.v;});
+    var lo=Math.min.apply(null,vals);
+    var avg=Math.round(vals.reduce(function(a,b){return a+b;},0)/vals.length);
+    var lows=arr.filter(function(r){return r.v<70;}).length;
+    rows.push(["Sugar readings logged",arr.length+" · avg "+avg+" · lowest "+lo]);
+    rows.push(["Lows under 70",lows?(lows+" reading"+(lows===1?"":"s")):"none — steady 💚"]);
+  }else{
+    rows.push(["Sugar readings logged","none yet"]);
+  }
+  var hypo=load("amma_hypo",[]).length;rows.push(["Low episodes noted",hypo?(""+hypo):"none"]);
+  var labs=load("amma_labs",[]);if(labs.length){var L=labs[0];rows.push(["Latest lab noted",L.name+" "+L.val+" ("+L.date+")"]);}
+  var appts=load("amma_appts",[]).slice().sort(function(a,b){return (a.date||"9")<(b.date||"9")?-1:1;});
+  var up=appts.filter(function(a){return a.date&&a.date>=todayISO();})[0]||appts[0];
+  if(up)rows.push(["Next appointment",up.title+(up.date?(" · "+prettyDate(up.date)):"")]);
+  var water=(load("amma_water",{})[todayISO()])||0;rows.push(["Water today",water+" / 8 glasses"]);
+  el.innerHTML=rows.map(function(r){return '<div class="kbfact"><span class="kf-k">'+r[0]+'</span><span class="kf-v">'+r[1]+'</span></div>';}).join("");
+  el.insertAdjacentHTML("beforeend",'<div class="kb-note">These come straight from what\u2019s been logged in the app, and update as the family records readings, labs and appointments.</div>');
+}
 
 /* ---- wiring ---- */
 (function(){

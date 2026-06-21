@@ -2,7 +2,7 @@
    Makes the app work offline after the first visit.
    IMPORTANT: when you update index.html, bump CACHE_VERSION below
    (e.g. v1 -> v2) so phones pull the new version. */
-const CACHE_VERSION = "amma-care-v8";
+const CACHE_VERSION = "amma-care-v10";
 const APP_SHELL = [
   "./",
   "./index.html",
